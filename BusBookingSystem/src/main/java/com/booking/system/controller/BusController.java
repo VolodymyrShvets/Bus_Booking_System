@@ -39,13 +39,17 @@ public class BusController {
         return service.getBussesByDepartureCityAndArrivalCity(departureCity, arrivalCity);
     }
 
-    /*          TODO update method -> pass seatNumber to delete it from seats array
     @ResponseStatus(HttpStatus.OK)
-    @PatchMapping
+    @PutMapping
     public Bus updateBus(@RequestBody Bus bus) {
         return service.updateBus(bus);
     }
-     */
+
+    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping(value = "/{name}/{seat}")
+    public Bus updateBus(@PathVariable String name, @PathVariable long seat) {
+        return service.updateBus(name, seat);
+    }
 
     @DeleteMapping(value = "/{name}")
     public ResponseEntity<Void> deleteBus(@PathVariable String name) {

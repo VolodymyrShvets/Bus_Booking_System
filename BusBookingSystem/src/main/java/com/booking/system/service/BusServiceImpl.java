@@ -46,6 +46,14 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
+    public Bus updateBus(String name, long seat) {
+        log.info("Updating the Bus with name {} -> booking seat {}", name, seat);
+        Bus bus = repository.findByName(name);
+        bus.getAvailableSeats().remove(seat);
+        return repository.save(bus);
+    }
+
+    @Override
     public void deleteBus(String busName) {
         log.info("Deleting the Bus with name {}", busName);
         repository.deleteByName(busName);

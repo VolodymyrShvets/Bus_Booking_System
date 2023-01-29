@@ -15,5 +15,7 @@ public interface BusService {
 
     Bus updateBus(Bus bus);
 
+    Bus updateBus(String name, long seat);
+
     void deleteBus(String busName);
 }
