@@ -2,7 +2,6 @@
 .idea/
 out/
 *.iml
-*.xml
 *.class
 *.md
 target/
