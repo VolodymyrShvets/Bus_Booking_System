@@ -1,0 +1,457 @@
+[
+  {
+    "name": "061H",
+    "departureCity": "Kyiv",
+    "arrivalCity": "Dnipro",
+    "departureTime": "2023-02-02 09:30",
+    "arrivalTime": "2023-02-02 18:20",
+    "availableSeats": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      12,
+      14
+    ]
+  },
+  {
+    "name": "746H",
+    "departureCity": "Dnipro",
+    "arrivalCity": "Kyiv",
+    "departureTime": "2023-02-02 20:00",
+    "arrivalTime": "2023-02-03 07:15",
+    "availableSeats": [
+      1,
+      3,
+      4,
+      6,
+      7,
+      10,
+      12,
+      14,
+      17,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "568D",
+    "departureCity": "Kyiv",
+    "arrivalCity": "Kharkiv",
+    "departureTime": "2023-02-02 07:45",
+    "arrivalTime": "2023-02-02 11:50",
+    "availableSeats": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      10,
+      11,
+      12,
+      14,
+      15,
+      16,
+      18
+    ]
+  },
+  {
+    "name": "795W",
+    "departureCity": "Kharkiv",
+    "arrivalCity": "Kyiv",
+    "departureTime": "2023-02-02 14:20",
+    "arrivalTime": "2023-02-02 18:15",
+    "availableSeats": [
+      6,
+      7,
+      11,
+      12,
+      13
+    ]
+  },
+  {
+    "name": "167L",
+    "departureCity": "Dnipro",
+    "arrivalCity": "Kharkiv",
+    "departureTime": "2023-02-02 08:05",
+    "arrivalTime": "2023-02-02 13:25",
+    "availableSeats": [
+      1,
+      2,
+      3,
+      6,
+      7,
+      9,
+      10,
+      12,
+      14,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "087N",
+    "departureCity": "Kharkiv",
+    "arrivalCity": "Dnipro",
+    "departureTime": "2023-02-02 15:40",
+    "arrivalTime": "2023-02-02 20:00",
+    "availableSeats": [
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      16,
+      19
+    ]
+  },
+  {
+    "name": "678B",
+    "departureCity": "Dnipro",
+    "arrivalCity": "Mykolaiv",
+    "departureTime": "2023-02-02 21:15",
+    "arrivalTime": "2023-02-03 05:55",
+    "availableSeats": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  {
+    "name": "624Q",
+    "departureCity": "Mykolaiv",
+    "arrivalCity": "Dnipro",
+    "departureTime": "2023-02-02 20:25",
+    "arrivalTime": "2023-02-03 05:30",
+    "availableSeats": [
+      2,
+      4,
+      6,
+      9,
+      14,
+      17
+    ]
+  },
+  {
+    "name": "236F",
+    "departureCity": "Kyiv",
+    "arrivalCity": "Mykolaiv",
+    "departureTime": "2023-02-02 08:45",
+    "arrivalTime": "2023-02-02 17:45",
+    "availableSeats": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      14,
+      15,
+      18,
+      19
+    ]
+  },
+  {
+    "name": "850V",
+    "departureCity": "Mykolaiv",
+    "arrivalCity": "Kyiv",
+    "departureTime": "2023-02-02 18:00",
+    "arrivalTime": "2023-02-03 04:00",
+    "availableSeats": [
+      1,
+      2,
+      6,
+      7,
+      9,
+      10,
+      12,
+      14,
+      16,
+      20
+    ]
+  },
+  {
+    "name": "638N",
+    "departureCity": "Kyiv",
+    "arrivalCity": "Rivne",
+    "departureTime": "2023-02-02 10:15",
+    "arrivalTime": "2023-02-02 17:25",
+    "availableSeats": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      10,
+      12,
+      13,
+      14,
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "935J",
+    "departureCity": "Rivne",
+    "arrivalCity": "Kyiv",
+    "departureTime": "2023-02-02 12:40",
+    "arrivalTime": "2023-02-02 19:55",
+    "availableSeats": [
+      2,
+      3,
+      4,
+      6,
+      8,
+      10,
+      14,
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "014B",
+    "departureCity": "Kyiv",
+    "arrivalCity": "Lviv",
+    "departureTime": "2023-02-02 10:30",
+    "arrivalTime": "2023-02-02 20:50",
+    "availableSeats": [
+      5,
+      6,
+      8,
+      10,
+      11,
+      12,
+      13,
+      14,
+      19
+    ]
+  },
+  {
+    "name": "050Z",
+    "departureCity": "Lviv",
+    "arrivalCity": "Kyiv",
+    "departureTime": "2023-02-02 09:10",
+    "arrivalTime": "2023-02-02 19:00",
+    "availableSeats": [
+      1,
+      2,
+      6,
+      7,
+      10,
+      11,
+      14,
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "534A",
+    "departureCity": "Rivne",
+    "arrivalCity": "Lviv",
+    "departureTime": "2023-02-02 14:00",
+    "arrivalTime": "2023-02-02 17:40",
+    "availableSeats": [
+      3,
+      5,
+      7,
+      9,
+      12,
+      15
+    ]
+  },
+  {
+    "name": "110G",
+    "departureCity": "Lviv",
+    "arrivalCity": "Rivne",
+    "departureTime": "2023-02-02 13:25",
+    "arrivalTime": "2023-02-02 16:35",
+    "availableSeats": [
+      1,
+      2,
+      3,
+      4,
+      7,
+      9,
+      10,
+      11,
+      13,
+      18,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "961L",
+    "departureCity": "Odessa",
+    "arrivalCity": "Mykolaiv",
+    "departureTime": "2023-02-02 07:35",
+    "arrivalTime": "2023-02-02 09:25",
+    "availableSeats": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      11,
+      12,
+      15,
+      16,
+      18,
+      19
+    ]
+  },
+  {
+    "name": "168F",
+    "departureCity": "Mykolaiv",
+    "arrivalCity": "Odessa",
+    "departureTime": "2023-02-02 08:00",
+    "arrivalTime": "2023-02-02 10:15",
+    "availableSeats": [
+      6,
+      7,
+      10,
+      17,
+      19
+    ]
+  },
+  {
+    "name": "079D",
+    "departureCity": "Odessa",
+    "arrivalCity": "Dnipro",
+    "departureTime": "2023-02-02 18:40",
+    "arrivalTime": "2023-02-03 02:55",
+    "availableSeats": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      13,
+      14,
+      15,
+      18
+    ]
+  },
+  {
+    "name": "271Y",
+    "departureCity": "Dnipro",
+    "arrivalCity": "Odessa",
+    "departureTime": "2023-02-02 09:35",
+    "arrivalTime": "2023-02-02 18:15",
+    "availableSeats": [
+      2,
+      3,
+      5,
+      6,
+      8,
+      12,
+      14,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "316N",
+    "departureCity": "Odessa",
+    "arrivalCity": "Rivne",
+    "departureTime": "2023-02-02 12:10",
+    "arrivalTime": "2023-02-02 18:20",
+    "availableSeats": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      10,
+      12,
+      14,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "440T",
+    "departureCity": "Rivne",
+    "arrivalCity": "Odessa",
+    "departureTime": "2023-02-02 19:45",
+    "arrivalTime": "2023-02-03 04:55",
+    "availableSeats": [
+      1,
+      3,
+      6,
+      7,
+      12,
+      13,
+      14,
+      15,
+      20
+    ]
+  },
+  {
+    "name": "120R",
+    "departureCity": "Odessa",
+    "arrivalCity": "Lviv",
+    "departureTime": "2023-02-02 17:20",
+    "arrivalTime": "2023-02-03 05:35",
+    "availableSeats": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14,
+      19,
+      20
+    ]
+  },
+  {
+    "name": "058Z",
+    "departureCity": "Lviv",
+    "arrivalCity": "Odessa",
+    "departureTime": "2023-02-02 19:25",
+    "arrivalTime": "2023-02-03 07:25",
+    "availableSeats": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      9,
+      10,
+      12,
+      14,
+      20
+    ]
+  }
+]
+
