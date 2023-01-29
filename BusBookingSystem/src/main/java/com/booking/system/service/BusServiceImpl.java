@@ -1,6 +1,7 @@
 package com.booking.system.service;
 
 import com.booking.system.model.Bus;
+import com.booking.system.model.exception.BusNotFoundException;
 import com.booking.system.repository.BusRepository;
 import com.booking.system.service.api.BusService;
 import lombok.AllArgsConstructor;
@@ -24,24 +25,36 @@ public class BusServiceImpl implements BusService {
     @Override
     public List<Bus> getBussesByArrivalCity(String arrivalCity) {
         log.info("Receiving all Busses that arrive to {}", arrivalCity);
-        return repository.findAllByArrivalCity(arrivalCity);
+        List<Bus> buses = repository.findAllByArrivalCity(arrivalCity);
+        if (buses.size() == 0)
+            throw new BusNotFoundException(2, arrivalCity);
+        return buses;
     }
 
     @Override
     public List<Bus> getBussesByDepartureCity(String departureCity) {
         log.info("Receiving all Busses that departs from {}", departureCity);
-        return repository.findAllByDepartureCity(departureCity);
+        List<Bus> buses = repository.findAllByDepartureCity(departureCity);
+        if (buses.size() == 0)
+            throw new BusNotFoundException(1, departureCity);
+        return buses;
     }
 
     @Override
     public List<Bus> getBussesByDepartureCityAndArrivalCity(String departureCity, String arrivalCity) {
         log.info("Receiving all Busses that departs from {} and arrive to {}", departureCity, arrivalCity);
-        return repository.findAllByDepartureCityAndArrivalCity(departureCity, arrivalCity);
+        List<Bus> buses = repository.findAllByDepartureCityAndArrivalCity(departureCity, arrivalCity);
+        if (buses.size() == 0)
+            throw new BusNotFoundException(departureCity, arrivalCity);
+        return buses;
     }
 
     @Override
     public Bus updateBus(Bus bus) {
         log.info("Updating the Bus with name {}", bus.getName());
+        Bus buss = repository.findByName(bus.getName());
+        if (buss == null)
+            throw new BusNotFoundException(bus.getName());
         return repository.save(bus);
     }
 
@@ -49,6 +62,8 @@ public class BusServiceImpl implements BusService {
     public Bus updateBus(String name, long seat) {
         log.info("Updating the Bus with name {} -> booking seat {}", name, seat);
         Bus bus = repository.findByName(name);
+        if (bus == null)
+            throw new BusNotFoundException(name);
         bus.getAvailableSeats().remove(seat);
         return repository.save(bus);
     }
