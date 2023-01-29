@@ -5,12 +5,11 @@ import com.booking.system.service.api.BusService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping(value = "/bus")
 public class BusController {
@@ -23,19 +22,19 @@ public class BusController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/{departureCity}")
+    @GetMapping(value = "/departure/{departureCity}")
     public List<Bus> getBussesByDepartureCity(@PathVariable String departureCity) {
         return service.getBussesByDepartureCity(departureCity);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/{arrivalCity}")
+    @GetMapping(value = "/arrival/{arrivalCity}")
     public List<Bus> getBussesByArrivalCity(@PathVariable String arrivalCity) {
         return service.getBussesByArrivalCity(arrivalCity);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/{departureCity}/{arrivalCity}")
+    @GetMapping(value = "/departure/{departureCity}/arrival/{arrivalCity}")
     public List<Bus> findAllByDepartureCityAndArrivalCity(@PathVariable String departureCity, @PathVariable String arrivalCity) {
         return service.getBussesByDepartureCityAndArrivalCity(departureCity, arrivalCity);
     }
