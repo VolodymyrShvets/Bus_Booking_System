@@ -2,7 +2,7 @@ package com.booking.system.controller;
 
 import com.booking.system.model.Bus;
 import com.booking.system.service.api.BusService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping(value = "/bus")
 public class BusController {
     private BusService service;

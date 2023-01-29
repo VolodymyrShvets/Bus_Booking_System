@@ -3,7 +3,7 @@ package com.booking.system.service;
 import com.booking.system.model.Bus;
 import com.booking.system.repository.BusRepository;
 import com.booking.system.service.api.BusService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BusServiceImpl implements BusService {
     private BusRepository repository;
 
