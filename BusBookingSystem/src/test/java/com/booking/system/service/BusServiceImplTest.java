@@ -1,6 +1,7 @@
 package com.booking.system.service;
 
 import com.booking.system.model.Bus;
+import com.booking.system.model.exception.BusAlreadyExistsException;
 import com.booking.system.model.exception.BusNotFoundException;
 import com.booking.system.repository.BusRepository;
 import com.booking.system.test.util.TestDataUtil;
@@ -90,15 +91,13 @@ public class BusServiceImplTest {
         ));
     }
 
-    /*
     @Test
     public void busAlreadyExistsTest() {
         Bus testBus = TestDataUtil.createBus();
-        when(repository.existsByName(TEST_BUS_NAME)).thenReturn(true);      // TODO create "existsByName" in repository
+        when(repository.existsByName(TEST_BUS_NAME)).thenReturn(true);
 
-        assertThrows(BusAlreadyExistsException.class, () -> service.createNewBus(testBus));     // TODO create BusAlreadyExistsException and handler
+        assertThrows(BusAlreadyExistsException.class, () -> service.createNewBus(testBus));
     }
-     */
 
     @Test
     public void updateBusTest1() {
