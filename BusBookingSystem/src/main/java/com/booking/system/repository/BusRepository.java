@@ -11,6 +11,8 @@ import java.util.List;
 public interface BusRepository extends MongoRepository<Bus, String> {
     Bus findByName(String name);
 
+    boolean existsByName(String name);
+
     List<Bus> findAllByArrivalCity(String arrivalCity);
 
     List<Bus> findAllByDepartureCity(String departureCity);
