@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TestDataUtil {
     public static final String TEST_BUS_NAME = "144D";
-    public static final String TEST_DEPARTURE_CITY = "Kharkiv";
-    public static final String TEST_ARRIVAL_CITY = "Odessa";
+    public static final String TEST_DEPARTURE_CITY = "Zaporizhia";
+    public static final String TEST_ARRIVAL_CITY = "Chernivci";
     private static final LocalDateTime TEST_DEPARTURE_TIME = LocalDateTime.of(2022, 2, 3, 18, 25);
     private static final LocalDateTime TEST_ARRIVAL_TIME = LocalDateTime.of(2022, 2, 4, 8, 45);
     private static final List<Long> TEST_AVAILABLE_SEATS = new ArrayList<>(Stream.iterate(1L, n -> n + 1).limit(20).toList());

@@ -35,32 +35,32 @@ public class BusServiceImplTest {
 
     @Test
     public void getBusByDepartureCityTest() {
-        List<Bus> actual = List.of(TestDataUtil.createBus());
-        when(repository.findAllByDepartureCity(TEST_DEPARTURE_CITY)).thenReturn(actual);
+        List<Bus> expected = List.of(TestDataUtil.createBus());
+        when(repository.findAllByDepartureCity(TEST_DEPARTURE_CITY)).thenReturn(expected);
 
         List<Bus> testBusses = service.getBussesByDepartureCity(TEST_DEPARTURE_CITY);
 
-        Assert.assertTrue(Arrays.deepEquals(actual.toArray(), testBusses.toArray()));
+        Assert.assertTrue(Arrays.deepEquals(expected.toArray(), testBusses.toArray()));
     }
 
     @Test
     public void getBusByArrivalCityTest() {
-        List<Bus> actual = List.of(TestDataUtil.createBus());
-        when(repository.findAllByArrivalCity(TEST_ARRIVAL_CITY)).thenReturn(actual);
+        List<Bus> expected = List.of(TestDataUtil.createBus());
+        when(repository.findAllByArrivalCity(TEST_ARRIVAL_CITY)).thenReturn(expected);
 
-        List<Bus> testBusses = service.getBussesByArrivalCity(TEST_ARRIVAL_CITY);
+        List<Bus> actual = service.getBussesByArrivalCity(TEST_ARRIVAL_CITY);
 
-        Assert.assertTrue(Arrays.deepEquals(actual.toArray(), testBusses.toArray()));
+        Assert.assertTrue(Arrays.deepEquals(expected.toArray(), actual.toArray()));
     }
 
     @Test
     public void getBusByDepartureAndArrivalCityTest() {
-        List<Bus> actual = List.of(TestDataUtil.createBus());
-        when(repository.findAllByDepartureCityAndArrivalCity(TEST_DEPARTURE_CITY, TEST_ARRIVAL_CITY)).thenReturn(actual);
+        List<Bus> expected = List.of(TestDataUtil.createBus());
+        when(repository.findAllByDepartureCityAndArrivalCity(TEST_DEPARTURE_CITY, TEST_ARRIVAL_CITY)).thenReturn(expected);
 
-        List<Bus> testBusses = service.getBussesByDepartureCityAndArrivalCity(TEST_DEPARTURE_CITY, TEST_ARRIVAL_CITY);
+        List<Bus> actual = service.getBussesByDepartureCityAndArrivalCity(TEST_DEPARTURE_CITY, TEST_ARRIVAL_CITY);
 
-        Assert.assertTrue(Arrays.deepEquals(actual.toArray(), testBusses.toArray()));
+        Assert.assertTrue(Arrays.deepEquals(expected.toArray(), actual.toArray()));
     }
 
     @Test
@@ -80,73 +80,73 @@ public class BusServiceImplTest {
     @Test
     public void createBusTest() {
         Bus expected = TestDataUtil.createBus();
-        when(repository.save(any())).thenReturn(expected);
+        when(repository.insert(expected)).thenReturn(expected);
 
         Bus actual = service.createNewBus(expected);
 
-        assertThat(expected, allOf(
-                hasProperty("name", equalTo(actual.getName())),
-                hasProperty("departureCity", equalTo(actual.getDepartureCity())),
-                hasProperty("arrivalCity", equalTo(actual.getArrivalCity()))
+        assertThat(actual, allOf(
+                hasProperty("name", equalTo(expected.getName())),
+                hasProperty("departureCity", equalTo(expected.getDepartureCity())),
+                hasProperty("arrivalCity", equalTo(expected.getArrivalCity()))
         ));
     }
 
     @Test
     public void busAlreadyExistsTest() {
-        Bus testBus = TestDataUtil.createBus();
+        Bus expected = TestDataUtil.createBus();
         when(repository.existsByName(TEST_BUS_NAME)).thenReturn(true);
 
-        assertThrows(BusAlreadyExistsException.class, () -> service.createNewBus(testBus));
+        assertThrows(BusAlreadyExistsException.class, () -> service.createNewBus(expected));
     }
 
     @Test
     public void updateBusTest1() {
-        Bus testBus = TestDataUtil.createBus();
-        when(repository.findByName(TEST_BUS_NAME)).thenReturn(testBus);
-        when(repository.save(testBus)).thenReturn(testBus);
+        Bus expected = TestDataUtil.createBus();
+        when(repository.findByName(TEST_BUS_NAME)).thenReturn(expected);
+        when(repository.save(expected)).thenReturn(expected);
 
-        Bus expected = service.updateBus(testBus);
+        Bus actual = service.updateBus(expected);
 
-        assertThat(expected, allOf(
-                hasProperty("name", equalTo(testBus.getName())),
-                hasProperty("departureCity", equalTo(testBus.getDepartureCity())),
-                hasProperty("arrivalCity", equalTo(testBus.getArrivalCity()))
+        assertThat(actual, allOf(
+                hasProperty("name", equalTo(expected.getName())),
+                hasProperty("departureCity", equalTo(expected.getDepartureCity())),
+                hasProperty("arrivalCity", equalTo(expected.getArrivalCity()))
         ));
     }
 
     @Test
     public void updateBusTest2() {
-        Bus testBus = TestDataUtil.createBus();
-        when(repository.findByName(TEST_BUS_NAME)).thenReturn(testBus);
-        when(repository.save(testBus)).thenReturn(testBus);
+        Bus expected = TestDataUtil.createBus();
+        when(repository.findByName(TEST_BUS_NAME)).thenReturn(expected);
+        when(repository.save(expected)).thenReturn(expected);
 
-        Bus expected = service.updateBus(testBus.getName(), 20L);
+        Bus actual = service.updateBus(expected.getName(), 20L);
 
-        assertThat(expected, allOf(
-                hasProperty("name", equalTo(testBus.getName())),
-                hasProperty("departureCity", equalTo(testBus.getDepartureCity())),
-                hasProperty("arrivalCity", equalTo(testBus.getArrivalCity()))
+        assertThat(actual, allOf(
+                hasProperty("name", equalTo(expected.getName())),
+                hasProperty("departureCity", equalTo(expected.getDepartureCity())),
+                hasProperty("arrivalCity", equalTo(expected.getArrivalCity()))
         ));
 
-        Assert.assertTrue(Arrays.deepEquals(expected.getAvailableSeats().toArray(), testBus.getAvailableSeats().toArray()));
+        Assert.assertTrue(Arrays.deepEquals(actual.getAvailableSeats().toArray(), expected.getAvailableSeats().toArray()));
     }
 
     @Test
     public void updateBusNotFoundTest() {
-        Bus testBus = TestDataUtil.createBus();
+        Bus expected = TestDataUtil.createBus();
         doThrow(new BusNotFoundException(TEST_BUS_NAME)).when(repository).findByName(TEST_BUS_NAME);
 
-        assertThrows(BusNotFoundException.class, () -> service.updateBus(testBus));
+        assertThrows(BusNotFoundException.class, () -> service.updateBus(expected));
     }
 
     @Test
     public void deleteBusTest() {
-        Bus testBus = TestDataUtil.createBus();
-        when(repository.findByName(TEST_BUS_NAME)).thenReturn(testBus);
+        Bus expected = TestDataUtil.createBus();
+        when(repository.findByName(TEST_BUS_NAME)).thenReturn(expected);
 
         service.deleteBus(TEST_BUS_NAME);
 
-        verify(repository, times(1)).deleteByName(testBus.getName());
+        verify(repository, times(1)).deleteByName(expected.getName());
     }
 
     @Test
