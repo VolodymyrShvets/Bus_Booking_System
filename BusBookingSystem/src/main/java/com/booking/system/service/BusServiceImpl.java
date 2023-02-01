@@ -25,7 +25,7 @@ public class BusServiceImpl implements BusService {
             throw new BusAlreadyExistsException(bus.getName());
 
         log.info("Bus with name {} successfully created", bus.getName());
-        return repository.save(bus);
+        return repository.insert(bus);
     }
 
     @Override
