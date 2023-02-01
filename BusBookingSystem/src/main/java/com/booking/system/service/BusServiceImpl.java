@@ -9,6 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -61,7 +65,27 @@ public class BusServiceImpl implements BusService {
         Bus buss = repository.findByName(bus.getName());
         if (buss == null)
             throw new BusNotFoundException(bus.getName());
-        return repository.save(bus);
+
+        Field[] fields = Bus.class.getDeclaredFields();
+        Method[] methods = Arrays.stream(Bus.class.getMethods()).filter(method -> method.getName().startsWith("set")).toList().toArray(new Method[0]);
+
+        for (int i = 1; i < fields.length; i++) {
+            Field field = fields[i];
+            field.setAccessible(true);
+            Method method = Arrays.stream(methods).filter(method1 -> method1.getName().toLowerCase().endsWith(field.getName().toLowerCase())).findFirst().get();
+            try {
+                var value = field.get(bus);
+                if (value == null)
+                    continue;
+                method.invoke(buss, value);
+            } catch (IllegalAccessException ex) {
+                log.error("Illegal Argument Exception: Can't access field {}", field.getName());
+            } catch (InvocationTargetException e) {
+                log.error("Invocation Target Exception: Can't invoke method {}", method.getName());
+                throw new RuntimeException(e);
+            }
+        }
+        return repository.save(buss);
     }
 
     @Override
