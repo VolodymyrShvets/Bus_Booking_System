@@ -18,7 +18,7 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public Bus createNewBus(Bus bus) {
-        log.info("Creating new Bus with name {}", bus.getName());
+        log.info("Creating new Bus with name {}", bus.getName());   // TODO add check if bus already exists by name + exception
         return repository.save(bus);
     }
 
