@@ -1,6 +1,7 @@
 package com.booking.system.service;
 
 import com.booking.system.model.Bus;
+import com.booking.system.model.exception.BusAlreadyExistsException;
 import com.booking.system.model.exception.BusNotFoundException;
 import com.booking.system.repository.BusRepository;
 import com.booking.system.service.api.BusService;
@@ -18,7 +19,12 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public Bus createNewBus(Bus bus) {
-        log.info("Creating new Bus with name {}", bus.getName());   // TODO add check if bus already exists by name + exception
+        log.info("Creating new Bus with name {}", bus.getName());
+
+        if (repository.existsByName(bus.getName()))
+            throw new BusAlreadyExistsException(bus.getName());
+
+        log.info("Bus with name {} successfully created", bus.getName());
         return repository.save(bus);
     }
 
