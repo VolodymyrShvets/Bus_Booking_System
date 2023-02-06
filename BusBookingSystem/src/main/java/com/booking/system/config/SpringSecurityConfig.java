@@ -22,7 +22,9 @@ public class SpringSecurityConfig {
                 "/", "/home**", "/sign-in**", "/sign-up**", "/assets/**"
         };
 
-        http.csrf()
+        http
+                .userDetailsService(userDetailsService)
+                .csrf()
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(staticResources)
@@ -39,14 +41,6 @@ public class SpringSecurityConfig {
                 .permitAll()
                 .logoutSuccessUrl("/");
         return http.build();
-    } // TODO add redirect after successful registration
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userDetailsService);
-        auth.setPasswordEncoder(bCryptPasswordEncoder());
-        return auth;
     }
 
     @Bean

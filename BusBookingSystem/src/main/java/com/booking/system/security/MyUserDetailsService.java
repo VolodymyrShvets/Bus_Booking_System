@@ -1,11 +1,11 @@
 package com.booking.system.security;
 
+import com.booking.system.config.CustomUserDetails;
 import com.booking.system.model.User;
 import com.booking.system.model.exception.UserNotFoundException;
 import com.booking.system.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,10 +23,19 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.findByEmail(email);
+
         if (user == null)
             throw new UserNotFoundException(email);
+
         log.info("Logging into {}", user.getEmail());
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword(), Collections.<GrantedAuthority>singletonList(new SimpleGrantedAuthority("User")));
+
+        return new CustomUserDetails.Builder()
+                .withEmail(user.getEmail())
+                .withUsername(user.getEmail())
+                .withPassword(user.getPassword())
+                .withFirstName(user.getFirstName())
+                .withLastName(user.getLastName())
+                .withAuthorities(Collections.singletonList(new SimpleGrantedAuthority("User")))
+                .build();
     }
 }
