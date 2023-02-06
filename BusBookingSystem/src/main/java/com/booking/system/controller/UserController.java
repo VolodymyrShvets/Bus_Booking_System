@@ -20,17 +20,19 @@ public class UserController {
     @PostMapping(value = "/sign-up")
     public String registerNewUser(@ModelAttribute("user") UserDTO userDTO) {
         service.registerNewUser(userDTO);
-        return "redirect:/";
+        return "index";
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/user/{email}")
+    @ModelAttribute("user")
     public UserDTO getUser(@PathVariable String email) {
         return service.getUser(email);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/user/all")
+    @ModelAttribute("users")
     public List<UserDTO> getAllUsers() {
         return service.getAllUsers();
     }
