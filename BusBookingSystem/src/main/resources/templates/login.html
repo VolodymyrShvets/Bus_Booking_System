@@ -42,10 +42,10 @@
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <h1 class="fs-4 card-title text-center fw-bold mb-4">Sign In</h1>
-                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off" th:action="@{/sign-in}">
                             <div class="mb-3">
-                                <label class="mb-2 text-muted" for="email">E-Mail Address</label>
-                                <input id="email" type="email" class="form-control" name="email" value="" required
+                                <label class="mb-2 text-muted" for="username">E-Mail Address</label>
+                                <input id="username" type="text" class="form-control" name="username" value="" required
                                        autofocus>
                                 <div class="invalid-feedback">
                                     Email is invalid
@@ -68,6 +68,9 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
+                    <div th:if="${param.error}">
+                        <div class="alert alert-info text-center">Invalid email or password.</div>
                     </div>
                     <div class="card-footer py-3 border-0">
                         <div class="text-center">

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Bus Booking System</title>
@@ -10,7 +11,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #178f13">
     <div class="container-fluid">
         <a class="navbar-brand">
-            <img src="/assets/bus-icon.png" alt="" width="32" height="32" class="d-inline-block align-text-top">
+            <img src="/assets/bus-icon.png" alt="" width="32" height="32" class="d-inline-block align-text-top" th:src="@{/assets/bus-icon.png}">
             Bus Booking System
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -26,14 +27,30 @@
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 justify-content-end">
             <div class="navbar-nav">
-                <a class="nav-link active" href="#" th:href="@{/sign-up}">Sign Up</a>
-                <a class="nav-link active" href="#" th:href="@{/sign-in}">Sign In</a>
-                <!--<a class="nav-link active" href="#" th:href="@{/login}">Account</a>-->
+                <div sec:authorize="!isAuthenticated()">
+                    <a class="nav-link active" href="#" th:href="@{/sign-up}">Sign Up</a>
+                </div>
+                <div sec:authorize="!isAuthenticated()">
+                    <a class="nav-link active" href="#" th:href="@{/sign-in}">Sign In</a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav-link active" href="#" th:href="@{/account}">Account</a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <a class="nav-link active" href="#" th:href="@{/logout}">Logout</a>
+                </div>
             </div>
         </div>
     </div>
 </nav>
 <br>
-<h1>Welcome Home</h1>
+<div sec:authorize="isAuthenticated()">
+    <h1>Welcome <span sec:authentication="principal.username"> Home</span></h1>
+</div>
+<div sec:authorize="!isAuthenticated()">
+    <div th:if="${param.logout}">
+        <div class="alert alert-info">You have been logged out.</div>
+    </div>
+</div>
 </body>
 </html>
