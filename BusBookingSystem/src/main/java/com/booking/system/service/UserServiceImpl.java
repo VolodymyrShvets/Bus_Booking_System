@@ -9,6 +9,10 @@ import com.booking.system.service.api.UserService;
 import com.booking.system.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +23,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private UserRepository repository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDTO registerNewUser(UserDTO userDTO) {
@@ -28,6 +33,7 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException(userDTO.getEmail());
 
         User user = UserMapper.INSTANCE.userDTOToUser(userDTO);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user = repository.insert(user);
 
         log.info("User with email {} successfully created", userDTO.getEmail());
@@ -62,6 +68,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(userDTO.getEmail());
 
         persistedUser = UserMapper.INSTANCE.populateUserWithPresentUserDtoFields(persistedUser, userDTO);
+        persistedUser.setPassword(bCryptPasswordEncoder.encode(persistedUser.getPassword()));
         User storedUser = repository.save(persistedUser);
 
         log.info("User with email {} successfully updated", storedUser.getEmail());

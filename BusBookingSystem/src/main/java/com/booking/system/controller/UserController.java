@@ -5,43 +5,55 @@ import com.booking.system.service.api.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @AllArgsConstructor
-@RequestMapping(value = "/user")
 public class UserController {
     private UserService service;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public UserDTO registerNewUser(@RequestBody UserDTO userDTO) {
-        return service.registerNewUser(userDTO);
+    @PostMapping(value = "/sign-up")
+    public String registerNewUser(@ModelAttribute("user") UserDTO userDTO) {
+        service.registerNewUser(userDTO);
+        return "redirect:/";
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/{email}")
+    @GetMapping(value = "/user/{email}")
     public UserDTO getUser(@PathVariable String email) {
         return service.getUser(email);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/user/all")
     public List<UserDTO> getAllUsers() {
         return service.getAllUsers();
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping
-    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
+    @PutMapping(value = "/user")
+    public UserDTO updateUser(@ModelAttribute("user") UserDTO userDTO) {
         return service.updateUser(userDTO);
     }
 
-    @DeleteMapping(value = "/{email}")
+    @DeleteMapping(value = "/user/{email}")
     public ResponseEntity<Void> deleteUser(@PathVariable String email) {
         service.deleteUser(email);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/sign-up")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", userRegistrationDto());
+        return "register";
+    }
+
+    public UserDTO userRegistrationDto() {
+        return new UserDTO();
     }
 }
