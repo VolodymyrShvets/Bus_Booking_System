@@ -5,6 +5,7 @@
     "arrivalCity": "Dnipro",
     "departureTime": "2023-02-02 09:30",
     "arrivalTime": "2023-02-02 18:20",
+    "ticketPrice": 690,
     "availableSeats": [
       3,
       4,
@@ -23,6 +24,7 @@
     "arrivalCity": "Kyiv",
     "departureTime": "2023-02-02 20:00",
     "arrivalTime": "2023-02-03 07:15",
+    "ticketPrice": 691,
     "availableSeats": [
       1,
       3,
@@ -43,6 +45,7 @@
     "arrivalCity": "Kharkiv",
     "departureTime": "2023-02-02 07:45",
     "arrivalTime": "2023-02-02 11:50",
+    "ticketPrice": 700,
     "availableSeats": [
       1,
       2,
@@ -65,6 +68,7 @@
     "arrivalCity": "Kyiv",
     "departureTime": "2023-02-02 14:20",
     "arrivalTime": "2023-02-02 18:15",
+    "ticketPrice": 850,
     "availableSeats": [
       6,
       7,
@@ -79,6 +83,7 @@
     "arrivalCity": "Kharkiv",
     "departureTime": "2023-02-02 08:05",
     "arrivalTime": "2023-02-02 13:25",
+    "ticketPrice": 350,
     "availableSeats": [
       1,
       2,
@@ -99,6 +104,7 @@
     "arrivalCity": "Dnipro",
     "departureTime": "2023-02-02 15:40",
     "arrivalTime": "2023-02-02 20:00",
+    "ticketPrice": 500,
     "availableSeats": [
       4,
       6,
@@ -118,6 +124,7 @@
     "arrivalCity": "Mykolaiv",
     "departureTime": "2023-02-02 21:15",
     "arrivalTime": "2023-02-03 05:55",
+    "ticketPrice": 400,
     "availableSeats": [
       1,
       3,
@@ -135,6 +142,7 @@
     "arrivalCity": "Dnipro",
     "departureTime": "2023-02-02 20:25",
     "arrivalTime": "2023-02-03 05:30",
+    "ticketPrice": 430,
     "availableSeats": [
       2,
       4,
@@ -150,6 +158,7 @@
     "arrivalCity": "Mykolaiv",
     "departureTime": "2023-02-02 08:45",
     "arrivalTime": "2023-02-02 17:45",
+    "ticketPrice": 950,
     "availableSeats": [
       1,
       2,
@@ -171,6 +180,7 @@
     "arrivalCity": "Kyiv",
     "departureTime": "2023-02-02 18:00",
     "arrivalTime": "2023-02-03 04:00",
+    "ticketPrice": 1030,
     "availableSeats": [
       1,
       2,
@@ -190,6 +200,7 @@
     "arrivalCity": "Rivne",
     "departureTime": "2023-02-02 10:15",
     "arrivalTime": "2023-02-02 17:25",
+    "ticketPrice": 370,
     "availableSeats": [
       1,
       2,
@@ -213,6 +224,7 @@
     "arrivalCity": "Kyiv",
     "departureTime": "2023-02-02 12:40",
     "arrivalTime": "2023-02-02 19:55",
+    "ticketPrice": 340,
     "availableSeats": [
       2,
       3,
@@ -233,6 +245,7 @@
     "arrivalCity": "Lviv",
     "departureTime": "2023-02-02 10:30",
     "arrivalTime": "2023-02-02 20:50",
+    "ticketPrice": 470,
     "availableSeats": [
       5,
       6,
@@ -251,6 +264,7 @@
     "arrivalCity": "Kyiv",
     "departureTime": "2023-02-02 09:10",
     "arrivalTime": "2023-02-02 19:00",
+    "ticketPrice": 380,
     "availableSeats": [
       1,
       2,
@@ -271,6 +285,7 @@
     "arrivalCity": "Lviv",
     "departureTime": "2023-02-02 14:00",
     "arrivalTime": "2023-02-02 17:40",
+    "ticketPrice": 200,
     "availableSeats": [
       3,
       5,
@@ -286,6 +301,7 @@
     "arrivalCity": "Rivne",
     "departureTime": "2023-02-02 13:25",
     "arrivalTime": "2023-02-02 16:35",
+    "ticketPrice": 330,
     "availableSeats": [
       1,
       2,
@@ -307,6 +323,7 @@
     "arrivalCity": "Mykolaiv",
     "departureTime": "2023-02-02 07:35",
     "arrivalTime": "2023-02-02 09:25",
+    "ticketPrice": 190,
     "availableSeats": [
       3,
       4,
@@ -328,6 +345,7 @@
     "arrivalCity": "Odessa",
     "departureTime": "2023-02-02 08:00",
     "arrivalTime": "2023-02-02 10:15",
+    "ticketPrice": 170,
     "availableSeats": [
       6,
       7,
@@ -342,6 +360,7 @@
     "arrivalCity": "Dnipro",
     "departureTime": "2023-02-02 18:40",
     "arrivalTime": "2023-02-03 02:55",
+    "ticketPrice": 990,
     "availableSeats": [
       1,
       3,
@@ -362,6 +381,7 @@
     "arrivalCity": "Odessa",
     "departureTime": "2023-02-02 09:35",
     "arrivalTime": "2023-02-02 18:15",
+    "ticketPrice": 1040,
     "availableSeats": [
       2,
       3,
@@ -380,6 +400,7 @@
     "arrivalCity": "Rivne",
     "departureTime": "2023-02-02 12:10",
     "arrivalTime": "2023-02-02 18:20",
+    "ticketPrice": 580,
     "availableSeats": [
       1,
       2,
@@ -400,6 +421,7 @@
     "arrivalCity": "Odessa",
     "departureTime": "2023-02-02 19:45",
     "arrivalTime": "2023-02-03 04:55",
+    "ticketPrice": 580,
     "availableSeats": [
       1,
       3,
@@ -418,6 +440,7 @@
     "arrivalCity": "Lviv",
     "departureTime": "2023-02-02 17:20",
     "arrivalTime": "2023-02-03 05:35",
+    "ticketPrice": 600,
     "availableSeats": [
       3,
       4,
@@ -439,6 +462,7 @@
     "arrivalCity": "Odessa",
     "departureTime": "2023-02-02 19:25",
     "arrivalTime": "2023-02-03 07:25",
+    "ticketPrice": 690,
     "availableSeats": [
       1,
       2,
