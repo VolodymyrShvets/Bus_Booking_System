@@ -1,59 +1,72 @@
 package com.booking.system.controller;
 
-import com.booking.system.model.Bus;
+import com.booking.system.model.SearchData;
+import com.booking.system.model.dto.BusDTO;
 import com.booking.system.service.api.BusService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @AllArgsConstructor
-@RequestMapping(value = "/bus")
 public class BusController {
     private BusService service;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Bus createNewBus(@RequestBody Bus bus) {
-        return service.createNewBus(bus);
+    public BusDTO createNewBus(@RequestBody BusDTO busDTO) {
+        return service.createNewBus(busDTO);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/departure/{departureCity}")
-    public List<Bus> getBussesByDepartureCity(@PathVariable String departureCity) {
-        return service.getBussesByDepartureCity(departureCity);
+    @GetMapping(value = "/bus/departure/{departureCity}")
+    public String getBussesByDepartureCity(@PathVariable String departureCity, Model model) {
+        model.addAttribute("buses", service.getBussesByDepartureCity(departureCity));
+        return "index";
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/arrival/{arrivalCity}")
-    public List<Bus> getBussesByArrivalCity(@PathVariable String arrivalCity) {
-        return service.getBussesByArrivalCity(arrivalCity);
+    @GetMapping(value = "/bus/arrival/{arrivalCity}")
+    public String getBussesByArrivalCity(@PathVariable String arrivalCity, Model model) {
+        model.addAttribute("buses", service.getBussesByArrivalCity(arrivalCity));
+        return "index";
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/departure/{departureCity}/arrival/{arrivalCity}")
-    public List<Bus> findAllByDepartureCityAndArrivalCity(@PathVariable String departureCity, @PathVariable String arrivalCity) {
-        return service.getBussesByDepartureCityAndArrivalCity(departureCity, arrivalCity);
+    @GetMapping(value = "/bus/search")
+    public String findAllByDepartureCityAndArrivalCity(@ModelAttribute("searchData") SearchData searchData, Model model) {
+        model.addAttribute("buses", service.getBussesByDepartureCityAndArrivalCity(searchData.getDepartureCity(), searchData.getArrivalCity()));
+        return "index";
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping
-    public Bus updateBus(@RequestBody Bus bus) {
-        return service.updateBus(bus);
+    @PutMapping(value = "/bus")
+    public BusDTO updateBus(@RequestBody BusDTO busDTO) {
+        return service.updateBus(busDTO);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PatchMapping(value = "/{name}/{seat}")
-    public Bus updateBus(@PathVariable String name, @PathVariable long seat) {
+    @PatchMapping(value = "/bus/{name}/{seat}")
+    public BusDTO updateBus(@PathVariable String name, @PathVariable long seat) {
         return service.updateBus(name, seat);
     }
 
-    @DeleteMapping(value = "/{name}")
+    @DeleteMapping(value = "/bus/{name}")
     public ResponseEntity<Void> deleteBus(@PathVariable String name) {
         service.deleteBus(name);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/")
+    public String showSearchForm(Model model) {
+        model.addAttribute("searchData", searchData());
+        return "index";
+    }
+
+    public SearchData searchData() {
+        return new SearchData();
     }
 }

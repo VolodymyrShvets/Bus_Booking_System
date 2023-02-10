@@ -1,10 +1,12 @@
 package com.booking.system.service;
 
 import com.booking.system.model.Bus;
+import com.booking.system.model.dto.BusDTO;
 import com.booking.system.model.exception.BusAlreadyExistsException;
 import com.booking.system.model.exception.BusNotFoundException;
 import com.booking.system.repository.BusRepository;
 import com.booking.system.service.api.BusService;
+import com.booking.system.service.mapper.BusMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -22,49 +25,61 @@ public class BusServiceImpl implements BusService {
     private BusRepository repository;
 
     @Override
-    public Bus createNewBus(Bus bus) {
-        log.info("Creating new Bus with name {}", bus.getName());
+    public BusDTO createNewBus(BusDTO busDTO) {
+        log.info("Creating new Bus with name {}", busDTO.getName());
 
-        if (repository.existsByName(bus.getName()))
-            throw new BusAlreadyExistsException(bus.getName());
+        if (repository.existsByName(busDTO.getName()))
+            throw new BusAlreadyExistsException(busDTO.getName());
 
-        log.info("Bus with name {} successfully created", bus.getName());
-        return repository.insert(bus);
+        Bus bus = BusMapper.INSTANCE.busDTOToBus(busDTO);
+        repository.insert(bus);
+
+        log.info("Bus with name {} successfully created", busDTO.getName());
+        return BusMapper.INSTANCE.busToBusDTO(bus);
     }
 
     @Override
-    public List<Bus> getBussesByArrivalCity(String arrivalCity) {
+    public List<BusDTO> getBussesByArrivalCity(String arrivalCity) {
         log.info("Receiving all Busses that arrive to {}", arrivalCity);
         List<Bus> buses = repository.findAllByArrivalCity(arrivalCity);
         if (buses.size() == 0)
             throw new BusNotFoundException(2, arrivalCity);
-        return buses;
+        return buses
+                .stream()
+                .map(BusMapper.INSTANCE::busToBusDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Bus> getBussesByDepartureCity(String departureCity) {
+    public List<BusDTO> getBussesByDepartureCity(String departureCity) {
         log.info("Receiving all Busses that departs from {}", departureCity);
         List<Bus> buses = repository.findAllByDepartureCity(departureCity);
         if (buses.size() == 0)
             throw new BusNotFoundException(1, departureCity);
-        return buses;
+        return buses
+                .stream()
+                .map(BusMapper.INSTANCE::busToBusDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Bus> getBussesByDepartureCityAndArrivalCity(String departureCity, String arrivalCity) {
+    public List<BusDTO> getBussesByDepartureCityAndArrivalCity(String departureCity, String arrivalCity) {
         log.info("Receiving all Busses that departs from {} and arrive to {}", departureCity, arrivalCity);
-        List<Bus> buses = repository.findAllByDepartureCityAndArrivalCity(departureCity, arrivalCity);
+        List<Bus> buses = repository.findAllByDepartureCityIgnoreCaseAndArrivalCityIgnoreCase(departureCity, arrivalCity);
         if (buses.size() == 0)
             throw new BusNotFoundException(departureCity, arrivalCity);
-        return buses;
+        return buses
+                .stream()
+                .map(BusMapper.INSTANCE::busToBusDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Bus updateBus(Bus bus) {
-        log.info("Updating the Bus with name {}", bus.getName());
-        Bus buss = repository.findByName(bus.getName());
-        if (buss == null)
-            throw new BusNotFoundException(bus.getName());
+    public BusDTO updateBus(BusDTO busDTO) {
+        log.info("Updating the Bus with name {}", busDTO.getName());
+        Bus persistedBus = repository.findByName(busDTO.getName());
+        if (persistedBus == null)
+            throw new BusNotFoundException(busDTO.getName());
 
         Field[] fields = Bus.class.getDeclaredFields();
         Method[] methods = Arrays.stream(Bus.class.getMethods()).filter(method -> method.getName().startsWith("set")).toList().toArray(new Method[0]);
@@ -74,10 +89,10 @@ public class BusServiceImpl implements BusService {
             field.setAccessible(true);
             Method method = Arrays.stream(methods).filter(method1 -> method1.getName().toLowerCase().endsWith(field.getName().toLowerCase())).findFirst().get();
             try {
-                var value = field.get(bus);
+                var value = field.get(busDTO);
                 if (value == null)
                     continue;
-                method.invoke(buss, value);
+                method.invoke(persistedBus, value);
             } catch (IllegalAccessException ex) {
                 log.error("Illegal Argument Exception: Can't access field {}", field.getName());
             } catch (InvocationTargetException e) {
@@ -85,17 +100,24 @@ public class BusServiceImpl implements BusService {
                 throw new RuntimeException(e);
             }
         }
-        return repository.save(buss);
+
+        Bus storedBus = repository.save(persistedBus);
+        log.info("Bus with name {} successfully updated", busDTO.getName());
+        return BusMapper.INSTANCE.busToBusDTO(storedBus);
     }
 
     @Override
-    public Bus updateBus(String name, long seat) {
+    public BusDTO updateBus(String name, long seat) {
         log.info("Updating the Bus with name {} -> booking seat {}", name, seat);
         Bus bus = repository.findByName(name);
+
         if (bus == null)
             throw new BusNotFoundException(name);
         bus.getAvailableSeats().remove(seat);
-        return repository.save(bus);
+
+        Bus storedBus = repository.save(bus);
+        log.info("Bus with name {} successfully updated", name);
+        return BusMapper.INSTANCE.busToBusDTO(storedBus);
     }
 
     @Override

@@ -54,10 +54,12 @@ public class Utility {
 
             JSONArray seats = (JSONArray) jo.get("availableSeats");
             bus.setAvailableSeats(seats);
+            bus.setTicketPrice((Long) jo.get("ticketPrice"));
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             bus.setDepartureTime(LocalDateTime.parse((String) jo.get("departureTime"), formatter));
             bus.setArrivalTime(LocalDateTime.parse((String) jo.get("arrivalTime"), formatter));
+            bus.setTravelTime();
 
             buses.add(bus);
         }

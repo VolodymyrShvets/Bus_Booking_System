@@ -17,7 +17,7 @@ public interface BusRepository extends MongoRepository<Bus, String> {
 
     List<Bus> findAllByDepartureCity(String departureCity);
 
-    List<Bus> findAllByDepartureCityAndArrivalCity(@Param("departureCity") String departureCity, @Param("arrivalCity") String arrivalCity);
+    List<Bus> findAllByDepartureCityIgnoreCaseAndArrivalCityIgnoreCase(@Param("departureCity") String departureCity, @Param("arrivalCity") String arrivalCity);
 
     void deleteByName(String busName);
 }

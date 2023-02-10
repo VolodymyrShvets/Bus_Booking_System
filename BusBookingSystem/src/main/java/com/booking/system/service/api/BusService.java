@@ -1,21 +1,22 @@
 package com.booking.system.service.api;
 
 import com.booking.system.model.Bus;
+import com.booking.system.model.dto.BusDTO;
 
 import java.util.List;
 
 public interface BusService {
-    Bus createNewBus(Bus bus);
+    BusDTO createNewBus(BusDTO busDTO);
 
-    List<Bus> getBussesByArrivalCity(String arrivalCity);
+    List<BusDTO> getBussesByArrivalCity(String arrivalCity);
 
-    List<Bus> getBussesByDepartureCity(String departureCity);
+    List<BusDTO> getBussesByDepartureCity(String departureCity);
 
-    List<Bus> getBussesByDepartureCityAndArrivalCity(String departureCity, String arrivalCity);
+    List<BusDTO> getBussesByDepartureCityAndArrivalCity(String departureCity, String arrivalCity);
 
-    Bus updateBus(Bus bus);
+    BusDTO updateBus(BusDTO busDTO);
 
-    Bus updateBus(String name, long seat);
+    BusDTO updateBus(String name, long seat);
 
     void deleteBus(String busName);
 }
