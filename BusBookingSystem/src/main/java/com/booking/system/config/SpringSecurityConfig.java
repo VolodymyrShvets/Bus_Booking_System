@@ -19,7 +19,7 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         String[] staticResources = {
-                "/", "/home**", "/sign-in**", "/sign-up**", "/assets/**"
+                "/", "/home**", "/sign-in**", "/sign-up**", "/assets/**", "/bus/search**"
         };
 
         http
