@@ -4,7 +4,6 @@ import com.booking.system.security.MyUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +18,7 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         String[] staticResources = {
-                "/", "/home**", "/sign-in**", "/sign-up**", "/assets/**", "/bus/search**"
+                "/", "/home**", "/sign-in**", "/sign-up**", "/assets/**", "/bus/search**", "/preorder/**", "/checkout/**", "/payment**"
         };
 
         http
