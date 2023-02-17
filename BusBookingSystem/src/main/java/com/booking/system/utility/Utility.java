@@ -8,7 +8,6 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -165,7 +164,7 @@ public class Utility {
 
     // duration: 1-fast 2-medium 3-long 4-superLong
     // count: 1, 2, 3
-    public static LocalDateTime[] generateDate(int count, int order, int duration, Random rnd) { // TODO generate departure and arrival date
+    public static LocalDateTime[] generateDate(int count, int order, int duration, Random rnd) {
         LocalDateTime[] dates = new LocalDateTime[2];
         LocalDate dateNow = LocalDate.now();
         LocalTime time = LocalTime.now();
