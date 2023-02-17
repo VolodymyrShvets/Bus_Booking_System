@@ -120,7 +120,14 @@
                                             </div>
                                             <div class="col align-self-center">
                                                 <p>
-                                                    <button type="button" class="btn btn-success">Choose</button>
+                                                <div th:if="${bus.getAvailableSeats().size() == 0}">
+                                                    <button type="button" class="btn btn-secondary" disabled>Choose
+                                                    </button>
+                                                </div>
+                                                <div th:unless="${bus.getAvailableSeats().size() == 0}">
+                                                    <a type="button" class="btn btn-success"
+                                                       th:href="@{/preorder/{name}(name=${bus.getName()})}">Choose</a>
+                                                </div>
                                                 </p>
                                                 <p><span th:text="${bus.getAvailableSeats().size()}"></span> seats
                                                     left
