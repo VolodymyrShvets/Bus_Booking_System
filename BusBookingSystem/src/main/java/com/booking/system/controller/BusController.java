@@ -48,12 +48,6 @@ public class BusController {
         return service.updateBus(busDTO);
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @PatchMapping(value = "/bus/{name}/{seat}")
-    public BusDTO updateBus(@PathVariable String name, @PathVariable long seat) {
-        return service.updateBus(name, seat);
-    }
-
     @DeleteMapping(value = "/bus/{name}")
     public ResponseEntity<Void> deleteBus(@PathVariable String name) {
         service.deleteBus(name);
