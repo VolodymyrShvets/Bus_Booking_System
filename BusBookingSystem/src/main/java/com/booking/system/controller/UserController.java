@@ -16,7 +16,6 @@ import java.util.List;
 public class UserController {
     private UserService service;
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/sign-up")
     public String registerNewUser(@ModelAttribute("user") UserDTO userDTO) {
         service.registerNewUser(userDTO);
