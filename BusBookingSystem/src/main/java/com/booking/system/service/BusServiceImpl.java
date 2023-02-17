@@ -39,6 +39,14 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
+    public BusDTO getBusByBusName(String name) {
+        log.info("Receiving Bus with name {}", name);
+
+        Bus bus = repository.findByName(name);
+        return BusMapper.INSTANCE.busToBusDTO(bus);
+    }
+
+    @Override
     public List<BusDTO> getBussesByArrivalCity(String arrivalCity) {
         log.info("Receiving all Busses that arrive to {}", arrivalCity);
         List<Bus> buses = repository.findAllByArrivalCity(arrivalCity);

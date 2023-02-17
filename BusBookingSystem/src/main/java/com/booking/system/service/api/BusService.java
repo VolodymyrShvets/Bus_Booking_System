@@ -8,6 +8,8 @@ import java.util.List;
 public interface BusService {
     BusDTO createNewBus(BusDTO busDTO);
 
+    BusDTO getBusByBusName(String name);
+
     List<BusDTO> getBussesByArrivalCity(String arrivalCity);
 
     List<BusDTO> getBussesByDepartureCity(String departureCity);
