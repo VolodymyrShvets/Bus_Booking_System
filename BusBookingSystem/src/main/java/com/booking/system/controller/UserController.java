@@ -19,7 +19,7 @@ public class UserController {
     @PostMapping(value = "/sign-up")
     public String registerNewUser(@ModelAttribute("user") UserDTO userDTO) {
         service.registerNewUser(userDTO);
-        return "index";
+        return "redirect:/sign-up?success=true";
     }
 
     @ResponseStatus(HttpStatus.OK)
