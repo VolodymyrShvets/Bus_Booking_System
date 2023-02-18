@@ -22,6 +22,6 @@ public class User {
     @Indexed(unique = true)
     String email;
     String password;
-    //@DocumentReference(collection = "ticket", lookup = "{'userEmail' : ?#{#self.email} }")
-    //List<Ticket> tickets;
+    @DocumentReference(lazy = true, collection = "ticket", lookup = "{'userEmail' : ?#{#self.email} }")
+    List<Ticket> tickets;
 }
