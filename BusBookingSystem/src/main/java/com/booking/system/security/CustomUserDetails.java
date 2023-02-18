@@ -1,19 +1,16 @@
-package com.booking.system.config;
+package com.booking.system.security;
 
-
-import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
-@EqualsAndHashCode
-public class CustomUserDetails extends User {
+public class UserPrincipal extends User {
     private final String firstName;
     private final String lastName;
     private final String email;
 
-    private CustomUserDetails(Builder builder) {
+    private UserPrincipal(Builder builder) {
         super(builder.username, builder.password, builder.authorities);
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
@@ -70,8 +67,8 @@ public class CustomUserDetails extends User {
             return this;
         }
 
-        public CustomUserDetails build() {
-            return new CustomUserDetails(this);
+        public UserPrincipal build() {
+            return new UserPrincipal(this);
         }
     }
 }
