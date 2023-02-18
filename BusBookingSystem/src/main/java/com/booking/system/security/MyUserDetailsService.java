@@ -1,6 +1,5 @@
 package com.booking.system.security;
 
-import com.booking.system.config.CustomUserDetails;
 import com.booking.system.model.User;
 import com.booking.system.model.exception.UserNotFoundException;
 import com.booking.system.repository.UserRepository;
@@ -31,7 +30,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
         return new CustomUserDetails.Builder()
                 .withEmail(user.getEmail())
-                .withUsername(user.getEmail())
                 .withPassword(user.getPassword())
                 .withFirstName(user.getFirstName())
                 .withLastName(user.getLastName())
