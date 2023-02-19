@@ -34,10 +34,126 @@
         </div>
     </div>
 </nav>
-<div class="info">
-    First Name: <span sec:authentication="principal.firstName"></span> <br>
-    Last Name: <span sec:authentication="principal.lastName"></span> <br>
-    Email: <span sec:authentication="principal.email"></span> <br>
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card border border-success">
+                <div class="card-header text-center">
+                    <h5 class="card-title">User Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-success table-striped table-hover table-bordered border-success">
+                        <tbody>
+                        <tr>
+                            <th scope="row">First Name</th>
+                            <td><span sec:authentication="principal.firstName"></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last Name</th>
+                            <td><span sec:authentication="principal.lastName"></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td><span sec:authentication="principal.email"></span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Password</th>
+                            <td><span sec:authentication="principal.password"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary btn-sm">Change Personal Info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card border border-success">
+                <div class="card-header text-center">
+                    <h5 class="card-title">Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <a type="button" class="btn btn-info"
+                           th:href="@{/tickets/{email}(email=${#authentication.name})}">Get User Tickets</a> <!-- TODO think about changing mechanism to getting User Email from code(and not from URL) -->
+                    </div>
+                    <div th:each="ticket :${tickets}">
+                        <br>
+                        <div class="card border border-info">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-7 align-self-center">
+                                            <p class="card-text">
+                                                Departs from:
+                                                <b>
+                                                    <span th:text="${ticket.getBusDepartureCity()}"></span>
+                                                    , <span
+                                                        th:text="${#temporals.format(ticket.getBusDepartureTime(), 'd MMM HH:mm', #locale.forLanguageTag('EN'))}"></span>
+                                                </b>
+                                            </p>
+                                            <p class="card-text">
+                                                Arrives to:
+                                                <b>
+                                                    <span th:text="${ticket.getBusArrivalCity()}"></span>
+                                                    , <span
+                                                        th:text="${#temporals.format(ticket.getBusArrivalTime(), 'd MMM HH:mm', #locale.forLanguageTag('EN'))}"></span>
+                                                </b>
+                                            </p>
+                                            <p class="card-text">
+                                                Ticket Status:
+                                                <b>
+                                                    <span th:text="${ticket.getStatus()}"></span>
+                                                </b>
+                                            </p>
+                                            <p class="card-text">
+                                            <div class="row border-top">
+                                                <div class="col">
+                                                    Seat:
+                                                    <b>
+                                                        <span th:text="${ticket.getSeat()}"></span>
+                                                    </b>
+                                                </div>
+                                                <div class="col">
+                                                    Price:
+                                                    <b>
+                                                        <span th:text="${ticket.getPrice()}"></span> UAN
+                                                    </b>
+                                                </div>
+                                            </div>
+                                            </p>
+                                        </div>
+                                        <div class="col align-self-center border-start">
+                                            <div class="row">
+                                                <p class="text-start">Passenger:</p>
+                                                <p class="text-end">
+                                                    <b>
+                                                        <span th:text="${ticket.getUserFirstName() + ' ' + ticket.getUserLastName()}"></span>
+                                                    </b>
+                                                </p>
+                                            </div>
+                                            <div class="row border-top">
+                                                <p class="text-start">Email:</p>
+                                                <p class="text-end">
+                                                    <b>
+                                                        <span th:text="${ticket.getUserEmail()}"></span>
+                                                    </b>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
