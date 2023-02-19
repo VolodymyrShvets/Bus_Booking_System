@@ -68,6 +68,16 @@
 
     <section>
         <div class="d-flex align-items-center flex-column gap-4">
+            <div th:if="${param.success}">
+                <div class="alert alert-info">Your ticket successfully saved. You may now manage it in your personal
+                    <span sec:authorize="isAuthenticated()"><a class="nav-link active" href="#" th:href="@{/account}">Account.</a></span>
+                    <span sec:authorize="!isAuthenticated()">Account. <a class="nav-link active" href="#"
+                                                                         th:href="@{/sign-in}">Sign In</a></span>
+                </div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">You have been logged out.</div>
+            </div>
             <h1>Welcome to my fancy Bus Booking System</h1>
             <br>
             <form class="d-flex" method="get" autocomplete="off" th:action="@{/bus/search}" th:object="${searchData}">
