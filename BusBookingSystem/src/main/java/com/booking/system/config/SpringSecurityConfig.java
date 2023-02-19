@@ -38,7 +38,7 @@ public class SpringSecurityConfig {
                 .and()
                 .logout()
                 .permitAll()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/?logout=true");
         return http.build();
     }
 
