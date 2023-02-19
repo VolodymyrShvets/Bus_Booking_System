@@ -60,17 +60,14 @@ public class OrderController {
 
     @PostMapping("/payment")
     public String postTicket() {
-
         ticketService.insertNewTicket(ticket);
         ticket = null;
-
-        return "redirect:/";
+        return "redirect:/?success=true";
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{email}")
-    public String getAllUserTickets(@PathVariable("email") String email, Model model) {
-
+    @GetMapping(value = "/tickets/{email}")
+    public String getUserTickets(@PathVariable String email, Model model) {
+        model.addAttribute("tickets", ticketService.getAllTicketsByUserEmail(email));
         return "account";
     }
 
