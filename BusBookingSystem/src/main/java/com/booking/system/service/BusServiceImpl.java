@@ -7,6 +7,7 @@ import com.booking.system.model.exception.BusNotFoundException;
 import com.booking.system.repository.BusRepository;
 import com.booking.system.service.api.BusService;
 import com.booking.system.service.mapper.BusMapper;
+import com.booking.system.utility.Utility;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,35 +50,15 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public List<BusDTO> getBussesByArrivalCity(String arrivalCity) {
-        log.info("Receiving all Busses that arrive to {}", arrivalCity);
-        List<Bus> buses = repository.findAllByArrivalCity(arrivalCity);
-        if (buses.size() == 0)
-            throw new BusNotFoundException(2, arrivalCity);
-        return buses
-                .stream()
-                .map(BusMapper.INSTANCE::busToBusDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<BusDTO> getBussesByDepartureCity(String departureCity) {
-        log.info("Receiving all Busses that departs from {}", departureCity);
-        List<Bus> buses = repository.findAllByDepartureCity(departureCity);
-        if (buses.size() == 0)
-            throw new BusNotFoundException(1, departureCity);
-        return buses
-                .stream()
-                .map(BusMapper.INSTANCE::busToBusDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<BusDTO> getBussesByDepartureCityAndArrivalCity(String departureCity, String arrivalCity) {
-        log.info("Receiving all Busses that departs from {} and arrive to {}", departureCity, arrivalCity);
-        List<Bus> buses = repository.findAllByDepartureCityIgnoreCaseAndArrivalCityIgnoreCase(departureCity, arrivalCity);
-        if (buses.size() == 0)
-            throw new BusNotFoundException(departureCity, arrivalCity);
+    public List<BusDTO> getBussesByDepartureCityAndArrivalCity(String departureCity, String arrivalCity, String date) {
+        log.info("Receiving all Busses that departs from {} and arrive to {} on {}", departureCity, arrivalCity, date);
+        LocalDate departureDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        List<Bus> buses =
+                repository.findAllByDepartureCityAndArrivalCity(
+                        Utility.capitalize(departureCity),
+                        Utility.capitalize(arrivalCity),
+                        departureDate,
+                        departureDate.plusDays(1));
         return buses
                 .stream()
                 .map(BusMapper.INSTANCE::busToBusDTO)
@@ -126,11 +109,5 @@ public class BusServiceImpl implements BusService {
         Bus storedBus = repository.save(bus);
         log.info("Bus with name {} successfully updated", name);
         return BusMapper.INSTANCE.busToBusDTO(storedBus);
-    }
-
-    @Override
-    public void deleteBus(String busName) {
-        log.info("Deleting the Bus with name {}", busName);
-        repository.deleteByName(busName);
     }
 }
