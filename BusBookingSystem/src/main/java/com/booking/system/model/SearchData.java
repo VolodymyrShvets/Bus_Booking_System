@@ -10,4 +10,5 @@ import org.springframework.stereotype.Component;
 public class SearchData {
     private String departureCity;
     private String arrivalCity;
+    private String departureDate;
 }
