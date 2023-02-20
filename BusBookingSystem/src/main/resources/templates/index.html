@@ -82,10 +82,12 @@
             <br>
             <form class="d-flex" method="get" autocomplete="off" th:action="@{/bus/search}" th:object="${searchData}">
                 <input class="form-control me-1" id="departure" type="search" placeholder="Departure City"
-                       aria-label="Departure City" th:field="*{departureCity}">
+                       aria-label="Departure City" th:field="*{departureCity}" required>
                 <button class="btn btn-outline-success btn-sm me-1" type="button" onclick="swapValues()"><--></button>
                 <input class="form-control me-1" id="arrival" type="search" placeholder="Arrival City"
-                       aria-label="Arrival City" th:field="*{arrivalCity}">
+                       aria-label="Arrival City" th:field="*{arrivalCity}" required>
+                <input class="form-control me-1" type="date" name="departureDate"
+                       th:min="${#temporals.createToday()}" required>
                 <button class="btn btn-success" type="submit">Search</button>
             </form>
         </div>
