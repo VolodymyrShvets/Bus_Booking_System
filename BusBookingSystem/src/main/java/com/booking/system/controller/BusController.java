@@ -5,7 +5,6 @@ import com.booking.system.model.dto.BusDTO;
 import com.booking.system.service.api.BusService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,23 +21,9 @@ public class BusController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/bus/departure/{departureCity}")
-    public String getBussesByDepartureCity(@PathVariable String departureCity, Model model) {
-        model.addAttribute("buses", service.getBussesByDepartureCity(departureCity));
-        return "index";
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/bus/arrival/{arrivalCity}")
-    public String getBussesByArrivalCity(@PathVariable String arrivalCity, Model model) {
-        model.addAttribute("buses", service.getBussesByArrivalCity(arrivalCity));
-        return "index";
-    }
-
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/bus/search")
     public String findAllByDepartureCityAndArrivalCity(@ModelAttribute("searchData") SearchData searchData, Model model) {
-        model.addAttribute("buses", service.getBussesByDepartureCityAndArrivalCity(searchData.getDepartureCity(), searchData.getArrivalCity()));
+        model.addAttribute("buses", service.getBussesByDepartureCityAndArrivalCity(searchData.getDepartureCity(), searchData.getArrivalCity(), searchData.getDepartureDate()));
         return "index";
     }
 
@@ -46,12 +31,6 @@ public class BusController {
     @PutMapping(value = "/bus")
     public BusDTO updateBus(@RequestBody BusDTO busDTO) {
         return service.updateBus(busDTO);
-    }
-
-    @DeleteMapping(value = "/bus/{name}")
-    public ResponseEntity<Void> deleteBus(@PathVariable String name) {
-        service.deleteBus(name);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = "/")
