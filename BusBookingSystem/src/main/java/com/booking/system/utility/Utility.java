@@ -36,10 +36,14 @@ public class Utility {
         repository.saveAll(busses);
     }
 
-    public static void saveBuses(BusRepository repository, List<Bus> buses) throws Exception {
+    public static void saveBuses(BusRepository repository, List<Bus> buses) {
         clearBusCollection(repository);
-
+        trimBusCollection(repository);
         repository.saveAll(buses);
+    }
+
+    public static void trimBusCollection(BusRepository repository) {
+        repository.deleteAllByDepartureTimeBefore(LocalDateTime.now());
     }
 
     public static void clearBusCollection(BusRepository repository) {
@@ -114,32 +118,35 @@ public class Utility {
                 "Odessa-Rivne-1-580-2", "Odessa-Lviv-1-600-3", "Odessa-Dnipro-2-990-3-3", "Odessa-Mykolaiv-3-190-1",
                 "Mykolaiv-Odessa-3-170-1", "Mykolaiv-Kyiv-1-1030-4", "Mykolaiv-Dnipro-2-430-2"};
         Random rnd = new Random();
-
+        LocalDate today = LocalDate.now();
         Bus bus;
 
-        for (int i = 0; i < cityPairs.length; i++) {
-            String[] val = cityPairs[i].split("-");
+        for (int k = 0; k < 30; k++) {
+            for (String cityPair : cityPairs) {
+                String[] val = cityPair.split("-");
 
-            for (int j = 0; j < Integer.parseInt(val[2]); j++) {
-                bus = new Bus();
+                for (int j = 0; j < Integer.parseInt(val[2]); j++) {
+                    bus = new Bus();
 
-                bus.setName(busUniqueNameGenerator());
+                    bus.setName(busUniqueNameGenerator());
 
-                bus.setDepartureCity(val[0]);
-                bus.setArrivalCity(val[1]);
+                    bus.setDepartureCity(val[0]);
+                    bus.setArrivalCity(val[1]);
 
-                LocalDateTime[] dates = generateDate(Integer.parseInt(val[2]), j + 1, Integer.parseInt(val[4]), rnd);
-                bus.setDepartureTime(dates[0]);
-                bus.setArrivalTime(dates[1]);
+                    LocalDateTime[] dates = generateDate(Integer.parseInt(val[2]), j + 1, Integer.parseInt(val[4]), rnd, today);
+                    bus.setDepartureTime(dates[0]);
+                    bus.setArrivalTime(dates[1]);
 
-                bus.setAvailableSeats(generateSeats(rnd.nextInt(20) + 1, rnd));
+                    bus.setAvailableSeats(generateSeats(rnd.nextInt(20) + 1, rnd));
 
-                bus.setTravelTime();
+                    bus.setTravelTime();
 
-                bus.setTicketPrice(generateTicketPrice(Long.parseLong(val[3]), rnd));
+                    bus.setTicketPrice(generateTicketPrice(Long.parseLong(val[3]), rnd));
 
-                list.add(bus);
+                    list.add(bus);
+                }
             }
+            today = today.plusDays(1);
         }
 
         return list;
@@ -164,9 +171,8 @@ public class Utility {
 
     // duration: 1-fast 2-medium 3-long 4-superLong
     // count: 1, 2, 3
-    public static LocalDateTime[] generateDate(int count, int order, int duration, Random rnd) {
+    public static LocalDateTime[] generateDate(int count, int order, int duration, Random rnd, LocalDate dateNow) {
         LocalDateTime[] dates = new LocalDateTime[2];
-        LocalDate dateNow = LocalDate.now();
         LocalTime time = LocalTime.now();
 
         switch (count) {
@@ -203,5 +209,9 @@ public class Utility {
         LocalTime firstTime = end.isAfter(start) ? start : end;
 
         return firstTime.plusNanos(randomNanos);
+    }
+
+    public static String capitalize(String name) {
+        return name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
     }
 }
