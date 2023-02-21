@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 public class BusController {
@@ -23,7 +25,11 @@ public class BusController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/bus/search")
     public String findAllByDepartureCityAndArrivalCity(@ModelAttribute("searchData") SearchData searchData, Model model) {
-        model.addAttribute("buses", service.getBussesByDepartureCityAndArrivalCity(searchData.getDepartureCity(), searchData.getArrivalCity(), searchData.getDepartureDate()));
+        List<BusDTO> list = service.getBussesByDepartureCityAndArrivalCity(searchData.getDepartureCity(), searchData.getArrivalCity(), searchData.getDepartureDate());
+        if (list.size() == 0)
+            model.addAttribute("noBuses", List.of(new BusDTO()));
+        else
+            model.addAttribute("buses", list);
         return "index";
     }
 
