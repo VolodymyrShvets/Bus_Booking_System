@@ -21,7 +21,6 @@ public class BusBookingSystemApplication {
         };
     }
 }
-// TODO (after previous) replace BusNotFoundException with message that no buses found
 // TODO add feature for user to change his info (name, last name, email, password)
 // TODO (after previous) add deletion mechanism, if ticket is stored more than (1 month)
 // TODO add email validator
