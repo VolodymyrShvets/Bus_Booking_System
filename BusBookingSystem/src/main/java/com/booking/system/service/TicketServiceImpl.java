@@ -38,6 +38,7 @@ public class TicketServiceImpl implements TicketService {
 
         return tickets
                 .stream()
+                .map(Ticket::updateTicketStatus)
                 .map(TicketMapper.INSTANCE::ticketToTicketDTO)
                 .collect(Collectors.toList());
     }

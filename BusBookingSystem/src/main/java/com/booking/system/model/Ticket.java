@@ -28,4 +28,11 @@ public class Ticket {
     private String userLastName;
     private String userEmail;
     private TicketStatus status;
+
+    public Ticket updateTicketStatus() {
+        if (this.status == TicketStatus.ACTIVE)
+            if (this.busArrivalTime.isBefore(LocalDateTime.now()))
+                this.status = TicketStatus.EXPIRED;
+        return this;
+    }
 }
