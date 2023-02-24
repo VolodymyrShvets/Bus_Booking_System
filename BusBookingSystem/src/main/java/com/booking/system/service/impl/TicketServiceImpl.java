@@ -1,4 +1,4 @@
-package com.booking.system.service;
+package com.booking.system.service.impl;
 
 import com.booking.system.model.Ticket;
 import com.booking.system.model.dto.TicketDTO;
