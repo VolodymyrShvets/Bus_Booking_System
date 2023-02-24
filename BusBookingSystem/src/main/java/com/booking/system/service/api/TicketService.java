@@ -8,4 +8,6 @@ public interface TicketService {
     TicketDTO insertNewTicket(TicketDTO ticketDTO);
 
     List<TicketDTO> getAllTicketsByUserEmail(String email);
+
+    void deleteTicket(String busName, long seat);
 }

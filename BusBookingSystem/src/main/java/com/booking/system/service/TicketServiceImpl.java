@@ -42,4 +42,10 @@ public class TicketServiceImpl implements TicketService {
                 .map(TicketMapper.INSTANCE::ticketToTicketDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteTicket(String busName, long seat) {
+        log.info("deleting ticket with bus name {} and seat {}", busName, seat);
+        repository.deleteTicketByBusNameAndSeat(busName, seat);
+    }
 }
