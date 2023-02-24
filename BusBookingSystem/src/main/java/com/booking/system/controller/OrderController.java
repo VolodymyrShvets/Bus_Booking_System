@@ -65,12 +65,6 @@ public class OrderController {
         return "redirect:/?success=true";
     }
 
-    @GetMapping(value = "/tickets/{email}")
-    public String getUserTickets(@PathVariable String email, Model model) {
-        model.addAttribute("tickets", ticketService.getAllTicketsByUserEmail(email));
-        return "account";
-    }
-
     public TicketDTO ticketCreationForm() {
         return new TicketDTO();
     }
