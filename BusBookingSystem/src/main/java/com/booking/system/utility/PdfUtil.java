@@ -107,7 +107,7 @@ public class PdfUtil {
         // Third Row: From -> City -> Passenger's First/Last Names
         PdfPCell pdfCell5 = new PdfPCell(new Phrase("FROM:", getFont(Font.BOLD, TABLE_FONT_SIZE)));
         PdfPCell pdfCell6 = new PdfPCell(new Phrase(ticket.getBusDepartureCity()));
-        PdfPCell pdfCell7 = new PdfPCell(new Phrase(ticket.getUserFirstName() + " " + ticket.getUserLastName())); // TODO set alignment to left
+        PdfPCell pdfCell7 = new PdfPCell(new Phrase(ticket.getUserFirstName() + " " + ticket.getUserLastName()));
         pdfCell7.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
         pdfCell5.setPadding(PADDING);
