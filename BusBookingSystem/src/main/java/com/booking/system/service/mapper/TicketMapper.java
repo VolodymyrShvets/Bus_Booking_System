@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 public interface TicketMapper {
     TicketMapper INSTANCE = Mappers.getMapper(TicketMapper.class);
 
+    @Mapping(target = "id", source = "ticket.id")
     @Mapping(target = "busName", source = "ticket.busName")
     @Mapping(target = "busDepartureCity", source = "ticket.busDepartureCity")
     @Mapping(target = "busArrivalCity", source = "ticket.busArrivalCity")
@@ -23,6 +24,7 @@ public interface TicketMapper {
     @Mapping(target = "status", source = "ticket.status")
     TicketDTO ticketToTicketDTO(Ticket ticket);
 
+    @Mapping(target = "id", source = "dto.id")
     @Mapping(target = "busName", source = "dto.busName")
     @Mapping(target = "busDepartureCity", source = "dto.busDepartureCity")
     @Mapping(target = "busArrivalCity", source = "dto.busArrivalCity")
