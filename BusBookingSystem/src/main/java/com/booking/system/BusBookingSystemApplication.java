@@ -24,4 +24,4 @@ public class BusBookingSystemApplication {
 // TODO add feature for user to change his info (name, last name, email, password)
 // TODO (after previous) add deletion mechanism, if ticket is stored more than (1 month)
 // TODO add email validator
-// TODO add feature to user -> create PDF from ticket and than -> send ticket to email
+// TODO place site on host and think about rent a mail server to send emails
