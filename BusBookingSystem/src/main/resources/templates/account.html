@@ -79,7 +79,7 @@
                 <div class="card-body">
                     <div class="text-center">
                         <a type="button" class="btn btn-info"
-                           th:href="@{/account/tickets/{email}(email=${#authentication.principal.email})}">Get User Tickets</a>
+                           th:href="@{/account/tickets}">Get User Tickets</a>
                         <!-- TODO think about changing mechanism to getting User Email from code(and not from URL) -->
                     </div>
                     <div th:each="ticket :${tickets}">
@@ -154,11 +154,11 @@
                             <div class="card-footer">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <a type="button" class="btn btn-outline-danger btn-sm me-md-3"
-                                       th:href="@{/account/tickets/delete/{busName}/{seat}/{email}(busName=${ticket.getBusName()}, seat=${ticket.getSeat()}, email=${ticket.getUserEmail()})}">
+                                       th:href="@{/account/tickets/delete/{busName}/{seat}(busName=${ticket.getBusName()}, seat=${ticket.getSeat()})}">
                                         Delete Ticket</a>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm">Send Ticket To
-                                        Email
-                                    </button>
+                                    <a type="button" class="btn btn-outline-secondary btn-sm"
+                                        th:href="@{/account/ticket/{id}(id=${ticket.getId()})}">
+                                            Send Ticket To Email</a>
                                 </div>
                             </div>
                         </div>
