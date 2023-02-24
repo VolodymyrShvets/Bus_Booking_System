@@ -79,7 +79,8 @@
                 <div class="card-body">
                     <div class="text-center">
                         <a type="button" class="btn btn-info"
-                           th:href="@{/tickets/{email}(email=${#authentication.name})}">Get User Tickets</a> <!-- TODO think about changing mechanism to getting User Email from code(and not from URL) -->
+                           th:href="@{/account/tickets/{email}(email=${#authentication.principal.email})}">Get User Tickets</a>
+                        <!-- TODO think about changing mechanism to getting User Email from code(and not from URL) -->
                     </div>
                     <div th:each="ticket :${tickets}">
                         <br>
@@ -87,6 +88,8 @@
                             <div class="card-body">
                                 <div class="container">
                                     <div class="row">
+                                        <h6 class="card-subtitle mb-2 text-muted"><b>Bus:</b> <span
+                                                th:text="${ticket.getBusName()}"></span></h6>
                                         <div class="col-7 align-self-center">
                                             <p class="card-text">
                                                 Departs from:
@@ -146,6 +149,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a type="button" class="btn btn-outline-danger btn-sm me-md-3"
+                                       th:href="@{/account/tickets/delete/{busName}/{seat}/{email}(busName=${ticket.getBusName()}, seat=${ticket.getSeat()}, email=${ticket.getUserEmail()})}">
+                                        Delete Ticket</a>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">Send Ticket To
+                                        Email
+                                    </button>
                                 </div>
                             </div>
                         </div>
