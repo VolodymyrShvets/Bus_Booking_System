@@ -32,6 +32,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public TicketDTO getTicketById(String id) {
+        log.info("Receiving ticket with id {}", id);
+        return TicketMapper.INSTANCE.ticketToTicketDTO(repository.findById(id).get());
+    }
+
+    @Override
     public List<TicketDTO> getAllTicketsByUserEmail(String email) {
         log.info("Receiving all tickets for user {}", email);
         List<Ticket> tickets = repository.findAllByUserEmail(email);

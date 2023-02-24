@@ -7,6 +7,8 @@ import java.util.List;
 public interface TicketService {
     TicketDTO insertNewTicket(TicketDTO ticketDTO);
 
+    TicketDTO getTicketById(String id);
+
     List<TicketDTO> getAllTicketsByUserEmail(String email);
 
     void deleteTicket(String busName, long seat);
