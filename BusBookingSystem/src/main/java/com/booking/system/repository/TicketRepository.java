@@ -11,4 +11,6 @@ public interface TicketRepository extends MongoRepository<Ticket, String> {
     Ticket findByBusName(String busName);
 
     List<Ticket> findAllByUserEmail(String email);
+
+    void deleteTicketByBusNameAndSeat(String busName, long seat);
 }
