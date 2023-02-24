@@ -1,9 +1,11 @@
 package com.booking.system.utility;
 
-import com.booking.system.model.TicketStatus;
 import com.booking.system.model.dto.TicketDTO;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,30 +13,17 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Slf4j
 public class PdfUtil {
     private static String filePath = "src\\main\\resources\\pdf\\";
-    private static final String extension = ".pdf";
+    public static final String extension = ".pdf";
 
-    public static void main(String[] args) throws IOException, DocumentException {
-        TicketDTO ticket = new TicketDTO();
-
-        ticket.setBusName("355H");
-        ticket.setBusDepartureCity("Kyiv");
-        ticket.setBusArrivalCity("Lviv");
-        ticket.setBusDepartureTime(LocalDateTime.now());
-        ticket.setBusArrivalTime(LocalDateTime.now().plusHours(5).plusMinutes(15));
-        ticket.setPrice(355L);
-        ticket.setSeat(6);
-        ticket.setStatus(TicketStatus.ACTIVE);
-        ticket.setUserFirstName("Volodymyr");
-        ticket.setUserLastName("Shvets");
-        ticket.setUserEmail("vshvets295@gmail.com");
-
-        createPdf(ticket);
+    public static String getFileSimpleName(String firstName, String lastName) {
+        return firstName + "_" + lastName;
     }
 
-    private static String generateTicketName(String firstName, String lastName) {
-        return filePath + firstName + "_" + lastName + extension;
+    public static String getTicketName(String firstName, String lastName) {
+        return filePath + getFileSimpleName(firstName, lastName) + extension;
     }
 
     private static String getDateFormatted(LocalDateTime time) {
@@ -49,22 +38,27 @@ public class PdfUtil {
         return f;
     }
 
-    public static void createPdf(TicketDTO ticket) throws IOException, DocumentException {
+    public static void createPdf(TicketDTO ticket) {
         Document document = new Document();
-        File file = new File(
-                generateTicketName(
-                        ticket.getUserFirstName(),
-                        ticket.getUserLastName()));
 
-        PdfWriter.getInstance(document, new FileOutputStream(file));
-        document.open();
-        document.setPageSize(PageSize.A5);
+        try {
+            File file = new File(
+                    getTicketName(
+                            ticket.getUserFirstName(),
+                            ticket.getUserLastName()));
 
-        createHeader(document);
+            PdfWriter.getInstance(document, new FileOutputStream(file));
+            document.open();
+            document.setPageSize(PageSize.A5);
 
-        createTable(document, ticket);
+            createHeader(document);
 
-        document.close();
+            createTable(document, ticket);
+
+            document.close();
+        } catch (DocumentException | IOException ex) {
+            log.error(ex.toString());
+        }
     }
 
     private static void createHeader(Document document) throws DocumentException {
