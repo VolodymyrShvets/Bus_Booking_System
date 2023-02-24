@@ -1,4 +1,4 @@
-package com.booking.system.security;
+package com.booking.system.security.userdetails;
 
 import com.booking.system.model.User;
 import com.booking.system.model.exception.UserNotFoundException;

@@ -1,4 +1,4 @@
-package com.booking.system.security;
+package com.booking.system.security.userdetails;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
