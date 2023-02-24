@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class TicketDTO {
+    private String id;
     private String busName;
     private String busDepartureCity;
     private String busArrivalCity;
