@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -36,6 +38,15 @@ public class PdfUtil {
         f.setStyle(style);
         f.setSize(size);
         return f;
+    }
+
+    public static void deleteFile(String firstName, String lastName) {
+        try {
+            String fileName = filePath + getFileSimpleName(firstName, lastName);
+            Files.deleteIfExists(Path.of(fileName));
+        } catch (IOException ex) {
+            log.error(ex.toString());
+        }
     }
 
     public static void createPdf(TicketDTO ticket) {
