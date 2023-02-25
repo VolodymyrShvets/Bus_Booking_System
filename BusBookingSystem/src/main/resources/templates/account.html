@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Account Management</title>
@@ -48,19 +47,19 @@
                         <tbody>
                         <tr>
                             <th scope="row">First Name</th>
-                            <td><span sec:authentication="principal.firstName"></span></td>
+                            <td><span th:text="${#authentication.getPrincipal().getFirstName()}"></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Last Name</th>
-                            <td><span sec:authentication="principal.lastName"></span></td>
+                            <td><span th:text="${#authentication.getPrincipal().getLastName()}"></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Email</th>
-                            <td><span sec:authentication="principal.email"></span></td>
+                            <td><span th:text="${#authentication.getPrincipal().getEmail()}"></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Password</th>
-                            <td><span sec:authentication="principal.password"></span></td>
+                            <td><span th:text="${#authentication.getPrincipal().getPassword()}"></span></td>
                         </tr>
                         </tbody>
                     </table>
@@ -80,7 +79,6 @@
                     <div class="text-center">
                         <a type="button" class="btn btn-info"
                            th:href="@{/account/tickets}">Get User Tickets</a>
-                        <!-- TODO think about changing mechanism to getting User Email from code(and not from URL) -->
                     </div>
                     <div th:each="ticket :${tickets}">
                         <br>
