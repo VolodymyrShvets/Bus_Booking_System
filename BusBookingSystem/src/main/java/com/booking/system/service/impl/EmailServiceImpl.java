@@ -2,6 +2,7 @@ package com.booking.system.service.impl;
 
 import com.booking.system.service.api.EmailService;
 
+import com.booking.system.utility.PdfUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,9 @@ public class EmailServiceImpl implements EmailService {
                 helper.addAttachment(attachmentName, file);
 
                 emailSender.send(message);
+
+                String[] arr = attachmentName.split("_");
+                PdfUtil.deleteFile(arr[0], arr[1]);
             } catch (MessagingException e) {
                 log.error(e.toString());
             }
