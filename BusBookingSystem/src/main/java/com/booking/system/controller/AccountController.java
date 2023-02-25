@@ -26,7 +26,7 @@ public class AccountController {
     }
 
     @GetMapping(value = "/account/ticket/{id}")
-    public String sendTicketToEmail(@PathVariable String id) {
+    public String sendTicketToEmail(@PathVariable String id) { // TODO move this logic to service layer
         String email = authenticationFacade.getAuthentication().getName();
         String subject = "Bus Ticket";
         String text = "Your bus ticket. Thanks for using our system.";
