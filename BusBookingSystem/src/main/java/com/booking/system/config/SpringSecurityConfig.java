@@ -1,6 +1,6 @@
 package com.booking.system.config;
 
-import com.booking.system.security.MyUserDetailsService;
+import com.booking.system.security.userdetails.MyUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
