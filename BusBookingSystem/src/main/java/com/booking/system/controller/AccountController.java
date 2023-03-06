@@ -1,10 +1,8 @@
 package com.booking.system.controller;
 
-import com.booking.system.model.dto.TicketDTO;
 import com.booking.system.security.authentication.IAuthenticationFacade;
 import com.booking.system.service.api.EmailService;
 import com.booking.system.service.api.TicketService;
-import com.booking.system.utility.PdfUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,25 +24,10 @@ public class AccountController {
     }
 
     @GetMapping(value = "/account/ticket/{id}")
-    public String sendTicketToEmail(@PathVariable String id) { // TODO move this logic to service layer
+    public String sendTicketToEmail(@PathVariable String id) {
         String email = authenticationFacade.getAuthentication().getName();
-        String subject = "Bus Ticket";
-        String text = "Your bus ticket. Thanks for using our system.";
-
-        TicketDTO ticketDTO = ticketService.getTicketById(id);
-        PdfUtil.createPdf(ticketDTO);
-
-        emailService.sendMessageWithAttachment(
-                email,
-                subject,
-                text,
-                PdfUtil.getTicketName(
-                        ticketDTO.getUserFirstName(),
-                        ticketDTO.getUserLastName()),
-                PdfUtil.getFileSimpleName(
-                        ticketDTO.getUserFirstName(),
-                        ticketDTO.getUserLastName()) + PdfUtil.extension);
-        return "account";
+        emailService.sendMessageWithAttachment(email, id);
+        return "redirect:/account/tickets?success=true";
     }
 
     @GetMapping(value = "/account/tickets/delete/{busName}/{seat}")
