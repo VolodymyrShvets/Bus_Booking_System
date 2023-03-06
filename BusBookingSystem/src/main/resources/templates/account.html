@@ -76,6 +76,9 @@
                     <h5 class="card-title">Tickets</h5>
                 </div>
                 <div class="card-body">
+                    <div class="text-center" th:if="${param.success}">
+                        <div class="alert alert-info text-center">Chosen ticket was sent to your email.</div>
+                    </div>
                     <div class="text-center">
                         <a type="button" class="btn btn-info"
                            th:href="@{/account/tickets}">Get User Tickets</a>
@@ -155,8 +158,8 @@
                                        th:href="@{/account/tickets/delete/{busName}/{seat}(busName=${ticket.getBusName()}, seat=${ticket.getSeat()})}">
                                         Delete Ticket</a>
                                     <a type="button" class="btn btn-outline-secondary btn-sm"
-                                        th:href="@{/account/ticket/{id}(id=${ticket.getId()})}">
-                                            Send Ticket To Email</a>
+                                       th:href="@{/account/ticket/{id}(id=${ticket.getId()})}">
+                                        Send Ticket To Email</a>
                                 </div>
                             </div>
                         </div>
