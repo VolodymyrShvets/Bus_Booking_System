@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,11 +44,31 @@ public class TicketServiceImpl implements TicketService {
         log.info("Receiving all tickets for user {}", email);
         List<Ticket> tickets = repository.findAllByUserEmail(email);
 
+        deleteExpiredTickets(tickets);
+        updateTicketStatus(tickets);
+
         return tickets
                 .stream()
-                .map(Ticket::updateTicketStatus)
                 .map(TicketMapper.INSTANCE::ticketToTicketDTO)
                 .collect(Collectors.toList());
+    }
+
+    private void updateTicketStatus(List<Ticket> tickets) {
+        for (Ticket t : tickets) {
+            if (t.updateTicketStatus())
+                repository.save(t);
+        }
+    }
+
+    private void deleteExpiredTickets(List<Ticket> tickets) {
+        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minus(Period.ofDays(30));
+
+        for (Ticket t : tickets) {
+            if (t.getBusArrivalTime().isEqual(thirtyDaysAgo)) {
+                repository.delete(t);
+                tickets.remove(t);
+            }
+        }
     }
 
     @Override
