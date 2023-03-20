@@ -3,10 +3,14 @@ package com.booking.system.controller;
 import com.booking.system.model.TicketStatus;
 import com.booking.system.model.dto.BusDTO;
 import com.booking.system.model.dto.TicketDTO;
+import com.booking.system.security.authentication.IAuthenticationFacade;
+import com.booking.system.security.userdetails.CustomUserDetails;
 import com.booking.system.service.api.BusService;
 import com.booking.system.service.api.TicketService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,7 @@ import java.util.List;
 public class OrderController {
     private BusService busService;
     private TicketService ticketService;
+    private IAuthenticationFacade authenticationFacade;
     private static TicketDTO ticket;
 
     @ResponseStatus(HttpStatus.OK)
@@ -66,6 +71,16 @@ public class OrderController {
     }
 
     public TicketDTO ticketCreationForm() {
-        return new TicketDTO();
+        TicketDTO dto = new TicketDTO();
+        Authentication auth = authenticationFacade.getAuthentication();
+
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+            dto.setUserFirstName(userDetails.getFirstName());
+            dto.setUserLastName(userDetails.getLastName());
+            dto.setUserEmail(userDetails.getEmail());
+        }
+
+        return dto;
     }
 }
