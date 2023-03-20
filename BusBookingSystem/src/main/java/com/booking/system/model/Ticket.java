@@ -29,10 +29,12 @@ public class Ticket {
     private String userEmail;
     private TicketStatus status;
 
-    public Ticket updateTicketStatus() {
+    public boolean updateTicketStatus() {
         if (this.status == TicketStatus.ACTIVE)
-            if (this.busArrivalTime.isBefore(LocalDateTime.now()))
+            if (this.busArrivalTime.isBefore(LocalDateTime.now())) {
                 this.status = TicketStatus.EXPIRED;
-        return this;
+                return true;
+            }
+        return false;
     }
 }
