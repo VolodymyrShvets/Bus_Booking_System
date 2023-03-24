@@ -40,13 +40,16 @@
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <h1 class="fs-4 card-title text-center fw-bold mb-4">Sign Up</h1>
-                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off" th:action="@{/sign-up}" th:object="${user}">
+                        <form method="POST" class="needs-validation" autocomplete="off" th:action="@{/sign-up}"
+                              th:object="${user}">
                             <div class="mb-3">
                                 <label class="mb-2 text-muted" for="first-name">First Name</label>
                                 <input id="first-name" type="text" class="form-control" name="first-name" value=""
                                        required
                                        autofocus
-                                       th:field="*{firstName}">
+                                       pattern="^[a-zA-Z]+$"
+                                       th:field="*{firstName}"
+                                       title="First Name should contain only Alphabetical characters.">
                                 <div class="invalid-feedback">
                                     Name is required
                                 </div>
@@ -57,7 +60,9 @@
                                 <input id="last-name" type="text" class="form-control" name="last-name" value=""
                                        required
                                        autofocus
-                                       th:field="*{lastName}">
+                                       pattern="^[a-zA-Z]+$"
+                                       th:field="*{lastName}"
+                                       title="Last Name should contain only Alphabetical characters.">
                                 <div class="invalid-feedback">
                                     Name is required
                                 </div>
@@ -67,7 +72,9 @@
                                 <label class="mb-2 text-muted" for="email">E-Mail Address</label>
                                 <input id="email" type="email" class="form-control" name="email" value=""
                                        required
-                                       th:field="*{email}">
+                                       pattern="^[a-zA-Z0-9._-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+                                       th:field="*{email}"
+                                       title="Email should match next regex: email@email.ml">
                                 <div class="invalid-feedback">
                                     Email is invalid
                                 </div>
@@ -76,6 +83,8 @@
                             <div class="mb-3">
                                 <label class="mb-2 text-muted" for="password">Password</label>
                                 <input id="password" type="password" class="form-control" name="password"
+                                       min="8"
+                                       max="24"
                                        required
                                        th:field="*{password}">
                                 <div class="invalid-feedback">
@@ -88,11 +97,14 @@
                                     Register
                                 </button>
                             </div>
+                            <p>
                             <div th:if="${param.success}">
-                                <div class="alert alert-info">You've successfully registered. You may now <a href="#" th:href="@{/sign-in}" class="text-dark">Sign In</a> into System.</div>
+                                <div class="alert alert-info">
+                                    You've successfully registered. You may now <a href="#" th:href="@{/sign-in}" class="text-dark">Sign In</a> into System.
+                                </div>
                             </div>
                             <div th:if="${param.error}">
-                                <div class="alert alert-info text-center">Email already exist.</div>
+                                <div class="alert alert-info"><span th:text="${errorMessage}"></span></div>
                             </div>
                         </form>
                     </div>

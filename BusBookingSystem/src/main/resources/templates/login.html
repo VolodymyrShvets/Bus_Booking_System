@@ -41,11 +41,14 @@
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <h1 class="fs-4 card-title text-center fw-bold mb-4">Sign In</h1>
-                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off" th:action="@{/sign-in}">
+                        <form method="POST" class="needs-validation" autocomplete="off" th:action="@{/sign-in}">
                             <div class="mb-3">
                                 <label class="mb-2 text-muted" for="username">E-Mail Address</label>
-                                <input id="username" type="text" class="form-control" name="username" value="" required
-                                       autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value=""
+                                       required
+                                       autofocus
+                                       pattern="^[a-zA-Z0-9._-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+                                       title="Email should match next regex: email@email.ml">
                                 <div class="invalid-feedback">
                                     Email is invalid
                                 </div>
@@ -55,7 +58,10 @@
                                 <div class="mb-2 w-100">
                                     <label class="text-muted" for="password">Password</label>
                                 </div>
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password"
+                                       min="8"
+                                       max="24"
+                                       required>
                                 <div class="invalid-feedback">
                                     Password is required
                                 </div>
