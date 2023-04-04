@@ -24,3 +24,4 @@ public class BusBookingSystemApplication {
 // TODO add feature for user to change his info (name, last name, email, password)
 // TODO check if seat exists in bus, before book it
 // TODO (previous upgrade) create transactions? for seat booking
+// TODO add 'return ticket' function only if ticket is not EXPIRED
