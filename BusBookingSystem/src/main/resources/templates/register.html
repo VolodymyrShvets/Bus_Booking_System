@@ -9,7 +9,7 @@
 </head>
 <body style="background-color: #e1f2ea">
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #178f13">
-    <div class="container-fluid">
+    <div class="container-fluid ms-3 me-3">
         <a class="navbar-brand">
             <img src="/assets/bus-icon.png" alt="" width="32" height="32" class="d-inline-block align-text-top">
             Bus Booking System
@@ -37,7 +37,7 @@
                 <div class="text-center my-5">
                     <img src="/assets/bus-icon.png" alt="" width="80" th:src="@{/assets/bus-icon.png}">
                 </div>
-                <div class="card shadow-lg">
+                <div class="card shadow-lg mb-4">
                     <div class="card-body p-5">
                         <h1 class="fs-4 card-title text-center fw-bold mb-4">Sign Up</h1>
                         <form method="POST" class="needs-validation" autocomplete="off" th:action="@{/sign-up}"
@@ -47,7 +47,7 @@
                                 <input id="first-name" type="text" class="form-control" name="first-name" value=""
                                        required
                                        autofocus
-                                       pattern="^[a-zA-Z]+$"
+                                       pattern="^[\p{L}\s]+$"
                                        th:field="*{firstName}"
                                        title="First Name should contain only Alphabetical characters.">
                                 <div class="invalid-feedback">
@@ -60,7 +60,7 @@
                                 <input id="last-name" type="text" class="form-control" name="last-name" value=""
                                        required
                                        autofocus
-                                       pattern="^[a-zA-Z]+$"
+                                       pattern="^[\p{L}\s]+$"
                                        th:field="*{lastName}"
                                        title="Last Name should contain only Alphabetical characters.">
                                 <div class="invalid-feedback">
@@ -113,9 +113,6 @@
                             Already have an account? <a href="#" th:href="@{/sign-in}" class="text-dark">Login</a>
                         </div>
                     </div>
-                </div>
-                <div class="text-center mt-5 text-muted">
-                    Copyright &copy; 2023 &mdash; Volodymyr Shvets
                 </div>
             </div>
         </div>

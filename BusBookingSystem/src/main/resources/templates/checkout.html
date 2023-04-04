@@ -11,7 +11,7 @@
 </head>
 <body style="background-color: #e1f2ea">
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #178f13">
-    <div class="container-fluid">
+    <div class="container-fluid ms-3 me-3">
         <a class="navbar-brand">
             <img src="/assets/bus-icon.png" alt="" width="32" height="32" class="d-inline-block align-text-top"
                  th:src="@{/assets/bus-icon.png}">
@@ -52,16 +52,14 @@
 
         <div class="col-8 align-self-center">
             <div th:each="bus :${currentBus}">
-                <br>
-                <br>
-                <div class="card border border-success">
+                <div class="card border border-success mt-4">
                     <div class="card-header">
                         <span class="text-muted">Bus</span> -> Passenger -> <span class="text-muted">Payment</span>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title text-center">Ticket Confirmation</h4>
                         <p>
-                        <form method="GET" class="needs-validation" novalidate="" autocomplete="off"
+                        <form method="GET" class="needs-validation" autocomplete="off"
                               th:action="@{/checkout/new/{name}(name=${bus.getName()})}"
                               th:object="${ticket}">
                             <div class="card border-success">
@@ -79,7 +77,9 @@
                                                        value=""
                                                        required
                                                        autofocus
-                                                       th:field="*{userFirstName}">
+                                                       th:field="*{userFirstName}"
+                                                       pattern="^[\p{L}\s]+$"
+                                                       title="First Name should contain only Alphabetical characters.">
                                             </div>
                                         </div>
                                         <div class="col">
@@ -90,7 +90,9 @@
                                                        value=""
                                                        required
                                                        autofocus
-                                                       th:field="*{userLastName}">
+                                                       th:field="*{userLastName}"
+                                                       pattern="^[\p{L}\s]+$"
+                                                       title="Last Name should contain only Alphabetical characters.">
                                             </div>
                                         </div>
                                     </div>
@@ -100,19 +102,21 @@
                                                value=""
                                                required
                                                autofocus
-                                               th:field="*{userEmail}">
+                                               th:field="*{userEmail}"
+                                               pattern="^[a-zA-Z0-9._-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+                                               title="Email should match next regex: email@email.ml">
+                                        <!-- TODO add tooltip(bootstrap) for displaying additional info about how email would be used, in case user not registered / signed -->
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <div class="card border-warning">
+                            <div class="card border-warning mt-3">
                                 <div class="card-header text-center">
                                     <h6>Seat Selection</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-sm">
                                         <tbody>
-                                        <tr>
+                                        <tr> <!-- TODO create fancy looking seat selection where all 20 seats displayed, but taken seats -> disabled -->
                                             <div th:each="seat: ${bus.getAvailableSeats()}">
                                                 <td>
                                                     <div class="form-check form-check-inline">
@@ -131,8 +135,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <br>
-                            <div class="card border-danger">
+                            <div class="card border-danger mt-3">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
@@ -144,8 +147,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <div class="text-center">
+                            <div class="text-center mt-3">
                                 <button type="submit" class="btn btn-danger ms-auto">
                                     Proceed To Payment
                                 </button>
