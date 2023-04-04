@@ -25,7 +25,7 @@ public class BusController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/bus/search")
     public String findAllByDepartureCityAndArrivalCity(@ModelAttribute("searchData") SearchData searchData, Model model) {
-        List<BusDTO> list = service.getBussesByDepartureCityAndArrivalCity(searchData.getDepartureCity(), searchData.getArrivalCity(), searchData.getDepartureDate());
+        List<BusDTO> list = service.getBussesByDepartureCityAndArrivalCity(searchData.getDepartureCity().trim(), searchData.getArrivalCity().trim(), searchData.getDepartureDate());
         if (list.size() == 0)
             model.addAttribute("noBuses", List.of(new BusDTO()));
         else
