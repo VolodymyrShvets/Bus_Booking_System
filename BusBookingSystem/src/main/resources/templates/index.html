@@ -91,15 +91,26 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row align-items-center">
             <div class="col">
             </div>
 
-            <div class="col-12 text-center mt-4">
-                <div th:each="bus: ${noBuses}"> <!-- TODO shorten column for this message-->
+            <div class="col-6 text-center">
+                <div th:each="bus: ${noBuses}">
                     <div class="alert alert-info">No buses was found with given search parameters.</div>
                 </div>
+            </div>
+
+            <div class="col">
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col">
+            </div>
+
+            <div class="col-12 text-center">
                 <div th:each="bus :${buses}">
                     <div class="card text-center border border-success mb-4">
                         <div class="card-body">
@@ -152,6 +163,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col">
             </div>
         </div>
