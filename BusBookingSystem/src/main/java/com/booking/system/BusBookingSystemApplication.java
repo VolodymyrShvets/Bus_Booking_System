@@ -25,3 +25,4 @@ public class BusBookingSystemApplication {
 // TODO check if seat exists in bus, before book it
 // TODO (previous upgrade) create transactions? for seat booking
 // TODO add 'return ticket' function only if ticket is not EXPIRED
+// TODO add alert icons and check colors of alerts
