@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +51,7 @@ public class TicketServiceImpl implements TicketService {
         return tickets
                 .stream()
                 .map(TicketMapper.INSTANCE::ticketToTicketDTO)
+                .sorted(Comparator.comparing(TicketDTO::getBusDepartureTime))
                 .collect(Collectors.toList());
     }
 
