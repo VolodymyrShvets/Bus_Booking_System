@@ -23,7 +23,7 @@ public class OrderController {
     private BusService busService;
     private TicketService ticketService;
     private IAuthenticationFacade authenticationFacade;
-    private static TicketDTO ticket;
+    private TicketDTO ticketDTO;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/preorder/{name}")
@@ -58,15 +58,15 @@ public class OrderController {
 
         busService.updateBus(name, ticketDTO.getSeat());
 
-        ticket = ticketDTO;
+        this.ticketDTO = ticketDTO;
 
         return "payment";
     }
 
     @PostMapping("/payment")
     public String postTicket() {
-        ticketService.insertNewTicket(ticket);
-        ticket = null;
+        ticketService.insertNewTicket(ticketDTO);
+        ticketDTO = null;
         return "redirect:/?success=true";
     }
 
