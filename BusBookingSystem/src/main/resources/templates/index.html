@@ -66,7 +66,7 @@
     <div class="container mb-4 mt-4">
         <div class="d-flex align-items-center flex-column gap-4">
             <div th:if="${param.success}">
-                <div class="alert alert-info">Your ticket successfully saved. You may now manage it in your personal
+                <div class="alert alert-success">Your ticket successfully saved. You may now manage it in your personal
                     <span sec:authorize="isAuthenticated()"><a class="nav-link active" href="#" th:href="@{/account}">Account.</a></span>
                     <span sec:authorize="!isAuthenticated()">Account. <a class="nav-link active" href="#"
                                                                          th:href="@{/sign-in}">Sign In</a></span>
@@ -98,7 +98,7 @@
 
             <div class="col-6 text-center">
                 <div th:each="bus: ${noBuses}">
-                    <div class="alert alert-info">No buses was found with given search parameters.</div>
+                    <div class="alert alert-warning">No buses was found with given search parameters.</div>
                 </div>
             </div>
 

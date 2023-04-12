@@ -99,12 +99,12 @@
                             </div>
                             <p>
                             <div th:if="${param.success}">
-                                <div class="alert alert-info">
+                                <div class="alert alert-success">
                                     You've successfully registered. You may now <a href="#" th:href="@{/sign-in}" class="text-dark">Sign In</a> into System.
                                 </div>
                             </div>
                             <div th:if="${param.error}">
-                                <div class="alert alert-info"><span th:text="${errorMessage}"></span></div>
+                                <div class="alert alert-error"><span th:text="${errorMessage}"></span></div>
                             </div>
                         </form>
                     </div>
