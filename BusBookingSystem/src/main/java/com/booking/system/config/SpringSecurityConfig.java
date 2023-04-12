@@ -18,7 +18,7 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         String[] staticResources = {
-                "/", "/home**", "/sign-in**", "/sign-up**", "/assets/**", "/bus/search**", "/preorder/**", "/checkout/**", "/payment**"
+                "/", "/home**", "/sign-in**", "/sign-up**", "/assets/**", "/bus/search**", "/preorder/**", "/checkout/**", "/payment**", "/error"
         };
 
         http
@@ -43,7 +43,7 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder() { // TODO move this bean to Config class
         return new BCryptPasswordEncoder(11);
     }
 }
