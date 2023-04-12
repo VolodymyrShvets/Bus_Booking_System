@@ -26,3 +26,5 @@ public class BusBookingSystemApplication {
 // TODO (previous upgrade) create transactions? for seat booking
 // TODO add 'return ticket' function only if ticket is not EXPIRED
 // TODO add alert icons and check colors of alerts
+
+// TODO add to all controller advices @slf4j, log error and return /error instead of message
