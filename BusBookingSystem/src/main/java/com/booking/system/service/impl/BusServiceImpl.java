@@ -4,6 +4,7 @@ import com.booking.system.model.Bus;
 import com.booking.system.model.dto.BusDTO;
 import com.booking.system.model.exception.BusAlreadyExistsException;
 import com.booking.system.model.exception.BusNotFoundException;
+import com.booking.system.model.exception.SeatAlreadyBookedException;
 import com.booking.system.repository.BusRepository;
 import com.booking.system.service.api.BusService;
 import com.booking.system.service.mapper.BusMapper;
@@ -104,6 +105,10 @@ public class BusServiceImpl implements BusService {
 
         if (bus == null)
             throw new BusNotFoundException(name);
+
+        if (!bus.getAvailableSeats().contains(seat))
+            throw  new SeatAlreadyBookedException(name, seat);
+
         bus.getAvailableSeats().remove(seat);
 
         Bus storedBus = repository.save(bus);
