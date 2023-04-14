@@ -56,8 +56,6 @@ public class OrderController {
 
         ticketDTO.setStatus(TicketStatus.ACTIVE);
 
-        busService.updateBus(name, ticketDTO.getSeat());
-
         this.ticketDTO = ticketDTO;
 
         return "payment";
@@ -65,6 +63,7 @@ public class OrderController {
 
     @PostMapping("/payment")
     public String postTicket() {
+        busService.updateBus(ticketDTO.getBusName(), ticketDTO.getSeat());
         ticketService.insertNewTicket(ticketDTO);
         ticketDTO = null;
         return "redirect:/?success=true";
