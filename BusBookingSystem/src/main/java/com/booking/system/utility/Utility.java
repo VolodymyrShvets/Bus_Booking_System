@@ -152,14 +152,14 @@ public class Utility {
         return list;
     }
 
-    public static List<Long> generateSeats(int limit, Random rnd) {
-        Set<Long> set = new HashSet<>();
+    public static List<Integer> generateSeats(int limit, Random rnd) {
+        Set<Integer> set = new HashSet<>();
 
         for (int i = 0; i < limit; i++) {
-            set.add(rnd.nextLong(20) + 1);
+            set.add(rnd.nextInt(20) + 1);
         }
 
-        List<Long> sorted = new ArrayList<>(set);
+        List<Integer> sorted = new ArrayList<>(set);
         Collections.sort(sorted);
 
         return sorted;
