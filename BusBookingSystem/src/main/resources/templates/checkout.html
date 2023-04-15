@@ -59,6 +59,40 @@
                     <div class="card-body">
                         <h4 class="card-title text-center">Ticket Confirmation</h4>
                         <p>
+                        <div class="text-center">
+                            <button class="btn btn-outline-info mb-3" type="button" id="collapse-button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseText" aria-expanded="false"
+                                    aria-controls="collapseText" th:onclick="change()">
+                                Show Bus Info
+                            </button>
+                        </div>
+                        <div class="collapse" id="collapseText">
+                            <div class="card text-center border border-info mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col align-self-center">
+                                            <h6 class="card-title"><span
+                                                    th:text="${#temporals.format(bus.getDepartureTime(), 'd MMM HH:mm', #locale.forLanguageTag('EN'))}"></span>
+                                            </h6>
+                                            <h5 class="card-text">Departs from: <span
+                                                    th:text="${bus.getDepartureCity()}"></span></h5>
+                                        </div>
+                                        <div class="col align-self-center">
+                                            <h6 class="card-title"><span
+                                                    th:text="${#temporals.format(bus.getArrivalTime(), 'd MMM HH:mm', #locale.forLanguageTag('EN'))}"></span>
+                                            </h6>
+                                            <h5 class="card-text">Arrives to: <span
+                                                    th:text="${bus.getArrivalCity()}"></span></h5>
+                                        </div>
+                                        <div class="col align-self-center">
+                                            <h6>Bus: <span th:text="${bus.getName()}"></span></h6>
+                                            <h6><span th:text="${bus.getAvailableSeats().size()}"></span> seats left</h6>
+                                            <h6><span th:text="${bus.getTicketPrice()}"></span> UAN</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <form method="GET" class="needs-validation" autocomplete="off"
                               th:action="@{/checkout/new/{name}(name=${bus.getName()})}"
                               th:object="${ticket}">
@@ -116,20 +150,41 @@
                                 <div class="card-body">
                                     <table class="table table-sm">
                                         <tbody>
-                                        <tr> <!-- TODO create fancy looking seat selection where all 20 seats displayed, but taken seats -> disabled -->
-                                            <div th:each="seat: ${bus.getAvailableSeats()}">
-                                                <td>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio"
-                                                               name="inlineRadioOptions"
-                                                               th:id="inlineRadio + ${seat}"
-                                                               th:value="${seat}"
-                                                               th:field="*{seat}">
-                                                        <label class="form-check-label" th:for="inlineRadio + ${seat}"
-                                                               th:text="${seat}"></label>
-                                                    </div>
-                                                </td>
-                                            </div>
+                                        <tr>
+                                            <th:block th:each="num, state: ${#numbers.sequence(1, 20)}">
+                                                <th:block th:if="${bus.getAvailableSeats().contains(num)}">
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="inlineRadioOptions"
+                                                                   th:id="inlineRadio + ${num}"
+                                                                   th:value="${num}"
+                                                                   th:field="*{seat}">
+                                                            <label class="form-check-label"
+                                                                   th:for="inlineRadio + ${num}"
+                                                                   th:text="${num}"></label>
+                                                        </div>
+                                                    </td>
+                                                </th:block>
+                                                <th:block th:unless="${bus.getAvailableSeats().contains(num)}">
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="inlineRadioOptions"
+                                                                   th:id="inlineRadio + ${num}"
+                                                                   th:value="${num}"
+                                                                   th:field="*{seat}"
+                                                                   disabled>
+                                                            <label class="form-check-label"
+                                                                   th:for="inlineRadio + ${num}"
+                                                                   th:text="${num}"></label>
+                                                        </div>
+                                                    </td>
+                                                </th:block>
+                                                <th:block th:if="${state.count % 10 == 0}">
+                                                    <span th:utext="'&lt;tr/&gt;&lt;tr&gt;'"></span>
+                                                </th:block>
+                                            </th:block>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -163,5 +218,17 @@
     </div>
 </div>
 
+<script>
+    function change() {
+        const initialText = 'Show Bus Info';
+        const btn = document.getElementById('collapse-button');
+
+        if (btn.textContent.toLowerCase().includes(initialText.toLowerCase())) {
+            btn.textContent = 'Hide Bus Info';
+        } else {
+            btn.textContent = initialText;
+        }
+    }
+</script>
 </body>
 </html>
