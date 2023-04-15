@@ -65,9 +65,10 @@
                                 </p>
                             </div>
                             <div class="col align-self-center">
-                                <button class="btn btn-outline-info" type="button" data-bs-toggle="collapse"
+                                <button class="btn btn-outline-info" type="button" id="collapse-button"
+                                        data-bs-toggle="collapse"
                                         data-bs-target="#collapseText" aria-expanded="false"
-                                        aria-controls="collapseText">
+                                        aria-controls="collapseText" th:onclick="change()">
                                     Show Additional Info
                                 </button>
                             </div>
@@ -117,5 +118,17 @@
     </div>
 </div>
 
+<script>
+    function change() {
+        const initialText = 'Show Additional Info';
+        const btn = document.getElementById('collapse-button');
+
+        if (btn.textContent.toLowerCase().includes(initialText.toLowerCase())) {
+            btn.textContent = 'Hide Additional Info';
+        } else {
+            btn.textContent = initialText;
+        }
+    }
+</script>
 </body>
 </html>
