@@ -22,4 +22,3 @@ public class BusBookingSystemApplication {
     }
 }
 // TODO add feature for user to change his info (name, last name, email, password)
-// TODO add 'return ticket' function only if ticket is not EXPIRED
