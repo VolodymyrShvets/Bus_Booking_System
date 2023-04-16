@@ -22,7 +22,7 @@ public class Ticket {
     private String busArrivalCity;
     private LocalDateTime busDepartureTime;
     private LocalDateTime busArrivalTime;
-    private long seat;
+    private int seat;
     private long price;
     private String userFirstName;
     private String userLastName;

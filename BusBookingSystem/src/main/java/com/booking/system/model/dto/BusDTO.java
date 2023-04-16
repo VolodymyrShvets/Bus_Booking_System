@@ -16,6 +16,6 @@ public class BusDTO {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private LocalTime travelTime;
-    private List<Long> availableSeats;
+    private List<Integer> availableSeats;
     private long ticketPrice;
 }
