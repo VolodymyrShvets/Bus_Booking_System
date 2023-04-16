@@ -150,10 +150,19 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a type="button" class="btn btn-outline-danger btn-sm me-md-3"
-                                       th:href="@{/account/tickets/delete/{busName}/{seat}(busName=${ticket.getBusName()}, seat=${ticket.getSeat()})}">
-                                        Delete Ticket</a>
-                                    <a type="button" class="btn btn-outline-secondary btn-sm"
+                                    <th:block
+                                            th:if="${ticket.getStatus() == T(com.booking.system.model.TicketStatus).ACTIVE}">
+                                        <a type="button" class="btn btn-outline-warning btn-sm me-md-3"
+                                           th:href="@{/account/ticket/return/{id}(id=${ticket.getId()})}">
+                                            Return Ticket</a>
+                                    </th:block>
+                                    <th:block
+                                            th:unless="${ticket.getStatus() == T(com.booking.system.model.TicketStatus).ACTIVE}">
+                                        <a type="button" class="btn btn-outline-danger btn-sm me-md-3"
+                                           th:href="@{/account/tickets/delete/{busName}/{seat}(busName=${ticket.getBusName()}, seat=${ticket.getSeat()})}">
+                                            Delete Ticket</a>
+                                    </th:block>
+                                    <a type="button" class="btn btn-outline-secondary btn-sm me-md-3"
                                        th:href="@{/account/ticket/{id}(id=${ticket.getId()})}">
                                         Send Ticket To Email</a>
                                 </div>
