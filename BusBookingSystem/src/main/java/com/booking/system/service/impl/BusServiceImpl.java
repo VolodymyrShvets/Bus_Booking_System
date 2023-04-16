@@ -9,8 +9,14 @@ import com.booking.system.repository.BusRepository;
 import com.booking.system.service.api.BusService;
 import com.booking.system.service.mapper.BusMapper;
 import com.booking.system.utility.Utility;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -27,6 +33,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class BusServiceImpl implements BusService {
     private BusRepository repository;
+    @Lazy
+    private MongoClient mongoClient;
+    @Lazy
+    private Environment env;
 
     @Override
     public BusDTO createNewBus(BusDTO busDTO) {
@@ -99,7 +109,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public BusDTO updateBus(String name, long seat) {
+    public BusDTO updateBus(String name, int seat) {
         log.info("Updating the Bus with name {} -> booking seat {}", name, seat);
         Bus bus = repository.findByName(name);
 
@@ -107,12 +117,25 @@ public class BusServiceImpl implements BusService {
             throw new BusNotFoundException(name);
 
         if (!bus.getAvailableSeats().contains(seat))
-            throw  new SeatAlreadyBookedException(name, seat);
+            throw new SeatAlreadyBookedException(name, seat);
 
-        bus.getAvailableSeats().remove(seat);
+        bus.getAvailableSeats().remove(Integer.valueOf(seat));
 
         Bus storedBus = repository.save(bus);
         log.info("Bus with name {} successfully updated", name);
         return BusMapper.INSTANCE.busToBusDTO(storedBus);
+    }
+
+    @Override
+    public BusDTO updateByNameAfterTicketReturned(String busName, int seat) {
+        log.info("Updating bus with name {}: returning seat {}", busName, seat);
+
+        UpdateResult updateResult =
+                mongoClient.getDatabase(env.getProperty("spring.data.mongodb.database"))
+                        .getCollection(env.getProperty("spring.data.mongodb.collections.bus"))
+                        .updateOne(Filters.eq("name", busName), Updates.addToSet("availableSeats", seat));
+        log.info("Bus with name {} successfully updated: added seat {}", busName, seat);
+
+        return getBusByBusName(busName);
     }
 }
