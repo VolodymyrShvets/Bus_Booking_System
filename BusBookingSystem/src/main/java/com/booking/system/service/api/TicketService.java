@@ -11,5 +11,7 @@ public interface TicketService {
 
     List<TicketDTO> getAllTicketsByUserEmail(String email);
 
+    void returnTicket(String id);
+
     void deleteTicket(String busName, long seat);
 }

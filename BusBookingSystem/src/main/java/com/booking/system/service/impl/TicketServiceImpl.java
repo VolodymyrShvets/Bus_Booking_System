@@ -3,10 +3,12 @@ package com.booking.system.service.impl;
 import com.booking.system.model.Ticket;
 import com.booking.system.model.dto.TicketDTO;
 import com.booking.system.repository.TicketRepository;
+import com.booking.system.service.api.BusService;
 import com.booking.system.service.api.TicketService;
 import com.booking.system.service.mapper.TicketMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TicketServiceImpl implements TicketService {
     private TicketRepository repository;
+    @Lazy
+    private BusService busService;
 
     @Override
     public TicketDTO insertNewTicket(TicketDTO ticketDTO) {
@@ -60,6 +64,22 @@ public class TicketServiceImpl implements TicketService {
             if (t.updateTicketStatus())
                 repository.save(t);
         }
+    }
+
+    @Override
+    public void returnTicket(String id) {
+        log.info("returning ticket {}", id);
+        Ticket ticket = repository.findById(id).get();
+
+        TicketDTO ticketDTO = TicketMapper.INSTANCE.ticketToTicketDTO(ticket);
+        String busName = ticketDTO.getBusName();
+        int seat = ticketDTO.getSeat();
+
+        log.info("deleting ticket with bus name {} and seat {}", busName, seat);
+        repository.delete(ticket);
+
+        log.info("adding seat {} to bus {}", seat, busName);
+        busService.updateByNameAfterTicketReturned(busName, seat);
     }
 
     private void deleteExpiredTickets(List<Ticket> tickets) {
