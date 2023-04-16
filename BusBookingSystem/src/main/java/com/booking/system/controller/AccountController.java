@@ -30,6 +30,14 @@ public class AccountController {
         return "redirect:/account/tickets?success=true";
     }
 
+    @GetMapping(value = "/account/ticket/return/{id}")
+    public String returnTicket(@PathVariable String id, Model model) {
+        String email = authenticationFacade.getAuthentication().getName();
+        ticketService.returnTicket(id);
+        model.addAttribute("tickets", ticketService.getAllTicketsByUserEmail(email));
+        return "account";
+    }
+
     @GetMapping(value = "/account/tickets/delete/{busName}/{seat}")
     public String deleteTicket(@PathVariable String busName, @PathVariable String seat, Model model) {
         String email = authenticationFacade.getAuthentication().getName();
