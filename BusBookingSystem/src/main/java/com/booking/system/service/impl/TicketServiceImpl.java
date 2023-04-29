@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +47,6 @@ public class TicketServiceImpl implements TicketService {
         log.info("Receiving all tickets for user {}", email);
         List<Ticket> tickets = repository.findAllByUserEmail(email);
 
-        deleteExpiredTickets(tickets);
         updateTicketStatus(tickets);
 
         return tickets
@@ -80,17 +77,6 @@ public class TicketServiceImpl implements TicketService {
 
         log.info("adding seat {} to bus {}", seat, busName);
         busService.updateByNameAfterTicketReturned(busName, seat);
-    }
-
-    private void deleteExpiredTickets(List<Ticket> tickets) {
-        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minus(Period.ofDays(30));
-
-        for (Ticket t : tickets) {
-            if (t.getBusArrivalTime().isEqual(thirtyDaysAgo)) {
-                repository.delete(t);
-                tickets.remove(t);
-            }
-        }
     }
 
     @Override
