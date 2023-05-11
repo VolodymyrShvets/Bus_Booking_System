@@ -60,9 +60,9 @@
                         </tr-->
                         </tbody>
                     </table>
-                    <div class="text-center">
+                    <!--div class="text-center">
                         <button type="button" class="btn btn-primary btn-sm">Change Personal Info</button>
-                    </div>
+                    </div-->
                 </div>
             </div>
         </div>
@@ -75,6 +75,12 @@
                 <div class="card-body">
                     <div class="text-center" th:if="${param.success}">
                         <div class="alert alert-info text-center">Chosen ticket was sent to your email.</div>
+                    </div>
+                    <div class="text-center" th:if="${param.return}">
+                        <div class="alert alert-info text-center">Ticket was returned.</div>
+                    </div>
+                    <div class="text-center" th:if="${param.delete}">
+                        <div class="alert alert-info text-center">Ticket was deleted.</div>
                     </div>
                     <div class="text-center">
                         <a type="button" class="btn btn-info"
