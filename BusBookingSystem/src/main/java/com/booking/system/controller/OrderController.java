@@ -42,7 +42,7 @@ public class OrderController {
         return "checkout";
     }
 
-    //@ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/checkout/new/{name}")
     public String addNewTicket(@PathVariable("name") String name, @ModelAttribute("ticket") TicketDTO ticketDTO) {
         BusDTO busDTO = busService.getBusByBusName(name);
