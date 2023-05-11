@@ -4,10 +4,12 @@ import com.booking.system.security.authentication.IAuthenticationFacade;
 import com.booking.system.service.api.EmailService;
 import com.booking.system.service.api.TicketService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @AllArgsConstructor
@@ -16,6 +18,7 @@ public class AccountController {
     private TicketService ticketService;
     private EmailService emailService;
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/account/tickets")
     public String getUserTickets(Model model) {
         String email = authenticationFacade.getAuthentication().getName();
@@ -35,7 +38,7 @@ public class AccountController {
         String email = authenticationFacade.getAuthentication().getName();
         ticketService.returnTicket(id);
         model.addAttribute("tickets", ticketService.getAllTicketsByUserEmail(email));
-        return "account";
+        return "redirect:/account/tickets?return=true";
     }
 
     @GetMapping(value = "/account/tickets/delete/{busName}/{seat}")
@@ -43,6 +46,6 @@ public class AccountController {
         String email = authenticationFacade.getAuthentication().getName();
         ticketService.deleteTicket(busName, Long.parseLong(seat));
         model.addAttribute("tickets", ticketService.getAllTicketsByUserEmail(email));
-        return "account";
+        return "redirect:/account/tickets?delete=true";
     }
 }
