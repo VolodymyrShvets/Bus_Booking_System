@@ -81,7 +81,7 @@ public class Utility {
     }
 
     public static void writeBusesToJson(String jsonPath) throws Exception {
-        List<Bus> buses = generateBuses();
+        List<Bus> buses = generateBuses(1, LocalDate.now());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         JSONArray list = new JSONArray();
@@ -107,7 +107,7 @@ public class Utility {
         file.write("]");
     }
 
-    public static List<Bus> generateBuses() {
+    public static List<Bus> generateBuses(int days, LocalDate now) {
         List<Bus> list = new ArrayList<>();
         String[] cityPairs = {
                 "Kyiv-Kharkiv-2-700-2", "Kyiv-Dnipro-2-690-2", "Kyiv-Mykolaiv-1-950-4", "Kyiv-Rivne-2-370-2", "Kyiv-Lviv-3-470-4",
@@ -118,10 +118,10 @@ public class Utility {
                 "Odessa-Rivne-1-580-2", "Odessa-Lviv-1-600-3", "Odessa-Dnipro-2-990-3-3", "Odessa-Mykolaiv-3-190-1",
                 "Mykolaiv-Odessa-3-170-1", "Mykolaiv-Kyiv-1-1030-4", "Mykolaiv-Dnipro-2-430-2"};
         Random rnd = new Random();
-        LocalDate today = LocalDate.now();
+        LocalDate today = now;
         Bus bus;
 
-        for (int k = 0; k < 30; k++) {
+        for (int k = 0; k < days; k++) {
             for (String cityPair : cityPairs) {
                 String[] val = cityPair.split("-");
 
