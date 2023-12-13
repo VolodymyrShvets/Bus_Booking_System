@@ -166,7 +166,7 @@ public class Utility {
     }
 
     public static long generateTicketPrice(long num, Random rnd) {
-        return (long) (num - num * (rnd.nextFloat(10f) / 100.0f));
+        return (long) (num - num * (rnd.nextFloat() * 10f / 100.0f));
     }
 
     // duration: 1-fast 2-medium 3-long 4-superLong
