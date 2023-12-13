@@ -16,4 +16,6 @@ public interface BusService {
     BusDTO updateBus(String name, int seat);
 
     BusDTO updateByNameAfterTicketReturned(String busName, int seat);
+
+    void updatingBusCollection();
 }

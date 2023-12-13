@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -137,5 +139,13 @@ public class BusServiceImpl implements BusService {
         log.info("Bus with name {} successfully updated: added seat {}", busName, seat);
 
         return getBusByBusName(busName);
+    }
+
+    @Override
+    @Async
+    @Scheduled(cron = "0 59 2 * * *")
+    public void updatingBusCollection() {
+        Utility.trimBusCollection(repository);
+        Utility.saveBuses(repository, Utility.generateBuses(1, LocalDate.now().plusDays(30)));
     }
 }
