@@ -6,8 +6,10 @@ import com.booking.system.model.dto.TicketDTO;
 import com.booking.system.security.authentication.IAuthenticationFacade;
 import com.booking.system.security.userdetails.CustomUserDetails;
 import com.booking.system.service.api.BusService;
+import com.booking.system.service.api.EmailService;
 import com.booking.system.service.api.TicketService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +26,8 @@ public class OrderController {
     private TicketService ticketService;
     private IAuthenticationFacade authenticationFacade;
     private TicketDTO ticketDTO;
+    @Lazy
+    private EmailService emailService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/preorder/{name}")
@@ -64,7 +68,8 @@ public class OrderController {
     @PostMapping("/payment")
     public String postTicket() {
         busService.updateBus(ticketDTO.getBusName(), ticketDTO.getSeat());
-        ticketService.insertNewTicket(ticketDTO);
+        ticketDTO = ticketService.insertNewTicket(ticketDTO);
+        emailService.sendMessageWithAttachment(ticketDTO.getUserEmail(), ticketDTO.getId());
         ticketDTO = null;
         return "redirect:/?success=true";
     }

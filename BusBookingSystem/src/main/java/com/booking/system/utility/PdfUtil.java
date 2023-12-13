@@ -57,6 +57,7 @@ public class PdfUtil {
                     getTicketName(
                             ticket.getUserFirstName(),
                             ticket.getUserLastName()));
+            file.createNewFile();
 
             PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
